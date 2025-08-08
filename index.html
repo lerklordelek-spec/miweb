@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Ti</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
   
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
   }
   
   body {
@@ -30,7 +31,7 @@
     z-index: 1;
   }
   
-  #heart-container {
+  #content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -42,29 +43,25 @@
   }
   
   #message {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
-    line-height: 1.4;
+    font-size: 1.6rem;
+    line-height: 1.6;
     margin: 30px 0;
     opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    color: #ff6b8b;
-    text-shadow: 0 0 15px rgba(255, 107, 139, 0.4);
+    transition: opacity 1.5s ease;
+    color: #fff;
   }
   
   #message.show {
     opacity: 1;
-    transform: scale(1);
   }
   
   #buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 40px;
     opacity: 0;
-    transition: opacity 1s ease 1.2s;
+    transition: opacity 1s ease;
   }
   
   #buttons.show {
@@ -72,23 +69,20 @@
   }
   
   button {
-    background: rgba(255, 107, 139, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    border: 1px solid rgba(255, 107, 139, 0.5);
-    padding: 14px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 28px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.4s ease;
-    border-radius: 30px;
+    transition: all 0.3s ease;
+    border-radius: 25px;
     min-width: 140px;
-    backdrop-filter: blur(5px);
   }
   
   button:hover {
-    background: rgba(255, 107, 139, 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 107, 139, 0.2);
+    background: rgba(255, 255, 255, 0.2);
   }
   
   #special-page {
@@ -114,17 +108,16 @@
   }
   
   #special-page h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     margin-bottom: 30px;
-    color: #ff6b8b;
-    text-shadow: 0 0 20px rgba(255, 107, 139, 0.3);
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 3px;
   }
   
   #video-container {
     width: 90%;
     max-width: 800px;
-    position: relative;
   }
   
   #video-container iframe {
@@ -132,60 +125,23 @@
     height: calc(90vw * 9/16);
     max-height: 450px;
     border: none;
-    box-shadow: 0 0 30px rgba(255, 107, 139, 0.2);
-    border-radius: 5px;
   }
   
   .close-btn {
     position: absolute;
     top: 30px;
     right: 30px;
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     border: none;
     color: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
   }
   
   .close-btn:hover {
-    background: rgba(255, 107, 139, 0.3);
-  }
-  
-  .floating-hearts {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  .floating-heart {
-    position: absolute;
-    font-size: 20px;
-    color: rgba(255, 107, 139, 0.6);
-    animation: float 12s linear infinite;
-    opacity: 0;
-  }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(100vh) rotate(0deg);
-      opacity: 0;
-    }
-    20% {
-      opacity: 0.7;
-    }
-    80% {
-      opacity: 0.7;
-    }
-    100% {
-      transform: translateY(-100px) rotate(360deg);
-      opacity: 0;
-    }
+    opacity: 1;
   }
 </style>
 </head>
@@ -193,12 +149,10 @@
 
 <canvas id="canvas"></canvas>
 
-<div class="floating-hearts" id="floatingHearts"></div>
-
-<div id="heart-container">
+<div id="content">
   <div id="message">
     Me estoy esforzando xd<br>
-    Te amo con todo mi corazón
+    Te amo con todo mi corazón para la reina de mis sueños.
   </div>
   <div id="buttons">
     <button id="continue-btn">Continuar</button>
@@ -228,44 +182,31 @@
   const stayBtn = document.getElementById('stay-btn');
   const specialPage = document.getElementById('special-page');
   const closeBtn = document.querySelector('.close-btn');
-  const floatingHearts = document.getElementById('floatingHearts');
 
   let width, height;
   let particles = [];
-  const particleCount = 300;
+  const particleCount = 200;
   let animationFrameId;
   let heartFormed = false;
-
-  // Crear corazones flotantes
-  function createFloatingHearts() {
-    for (let i = 0; i < 15; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('floating-heart');
-      heart.innerHTML = '❤️';
-      heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${8 + Math.random() * 15}s`;
-      heart.style.animationDelay = `${Math.random() * 5}s`;
-      heart.style.fontSize = `${18 + Math.random() * 24}px`;
-      floatingHearts.appendChild(heart);
-    }
-  }
 
   // Inicialización
   function init() {
     resize();
     createParticles();
-    createFloatingHearts();
     animate();
     
+    // Mostrar mensaje después de 1 segundo
     setTimeout(() => {
       message.classList.add('show');
     }, 1000);
     
+    // Mostrar botones después de 2 segundos
     setTimeout(() => {
       buttons.classList.add('show');
-    }, 2200);
+    }, 2000);
     
-    setTimeout(formHeart, 800);
+    // Formar corazón después de 0.5 segundos
+    setTimeout(formHeart, 500);
   }
 
   // Crear partículas
@@ -276,13 +217,12 @@
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 3 + 1,
+        size: Math.random() * 2 + 1,
         speedX: Math.random() * 2 - 1,
         speedY: Math.random() * 2 - 1,
         targetX: null,
         targetY: null,
-        color: `rgba(255, ${Math.floor(80 + Math.random() * 60)}, ${Math.floor(100 + Math.random() * 50)}, ${Math.random() * 0.5 + 0.4})`,
-        shadow: Math.random() * 15 + 5
+        color: `rgba(255, ${Math.floor(100 + Math.random() * 50)}, ${Math.floor(150 + Math.random() * 50)}, ${Math.random() * 0.5 + 0.3})`
       });
     }
   }
@@ -294,7 +234,7 @@
     
     const centerX = width / 2;
     const centerY = height / 2.5;
-    const heartSize = Math.min(width, height) / 3.5;
+    const heartSize = Math.min(width, height) / 4;
     
     particles.forEach((p, i) => {
       const angle = (i / particleCount) * Math.PI * 2;
@@ -308,13 +248,13 @@
 
   // Animación
   function animate() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.fillRect(0, 0, width, height);
     
     particles.forEach(p => {
       if (p.targetX !== null && p.targetY !== null) {
-        p.x += (p.targetX - p.x) * 0.07;
-        p.y += (p.targetY - p.y) * 0.07;
+        p.x += (p.targetX - p.x) * 0.05;
+        p.y += (p.targetY - p.y) * 0.05;
       } else {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -323,8 +263,6 @@
         if (p.y < 0 || p.y > height) p.speedY *= -1;
       }
       
-      ctx.shadowColor = p.color;
-      ctx.shadowBlur = p.shadow;
       ctx.fillStyle = p.color;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -353,17 +291,17 @@
   });
   
   stayBtn.addEventListener('click', () => {
-    for (let i = 0; i < 30; i++) {
+    // Efecto de partículas adicionales
+    for (let i = 0; i < 20; i++) {
       particles.push({
         x: Math.random() * width,
         y: height + Math.random() * 50,
-        size: Math.random() * 3 + 1,
+        size: Math.random() * 2 + 1,
         speedX: Math.random() * 1 - 0.5,
         speedY: -(Math.random() * 3 + 2),
         targetX: null,
         targetY: null,
-        color: `rgba(255, ${Math.floor(80 + Math.random() * 60)}, ${Math.floor(100 + Math.random() * 50)}, ${Math.random() * 0.5 + 0.4})`,
-        shadow: Math.random() * 15 + 5
+        color: `rgba(255, ${Math.floor(100 + Math.random() * 50)}, ${Math.floor(150 + Math.random() * 50)}, ${Math.random() * 0.5 + 0.3})`
       });
     }
   });
