@@ -6,7 +6,6 @@
 <title>Corazón Animado</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -32,19 +31,18 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: #d26a5a;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: center;
     max-width: 90vw;
-    z-index: 5;
+    z-index: 10;
     user-select: none;
     line-height: 1.4;
     letter-spacing: 0.02em;
     text-shadow: 0 0 4px #b84e42aa;
     animation: pulseText 3s ease-in-out infinite;
     opacity: 1;
-    transition: opacity 0.8s ease;
-    display: none;
+    display: block;
   }
   @keyframes pulseText {
     0%, 100% { opacity: 0.9; }
@@ -55,9 +53,10 @@
     bottom: 30px;
     width: 100%;
     text-align: center;
-    z-index: 10;
-    display: none;
-    gap: 30px;
+    z-index: 15;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
   }
   button {
     font-family: 'Poppins', sans-serif;
@@ -67,7 +66,6 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    box-shadow: none;
     transition: background-color 0.3s ease, transform 0.15s ease;
     user-select: none;
   }
@@ -75,28 +73,26 @@
     transform: scale(0.95);
   }
   #seguirBtn {
-    background-color: #2ecc71; /* verde */
+    background-color: #2ecc71;
     color: white;
   }
   #seguirBtn:hover {
     background-color: #27ae60;
   }
   #quedarseBtn {
-    background-color: #e74c3c; /* rojo */
+    background-color: #e74c3c;
     color: white;
   }
   #quedarseBtn:hover {
     background-color: #c0392b;
   }
   #teamoBtn {
-    background-color: #d46a9f; /* rosa bonito */
+    background-color: #d85ca3;
     color: white;
   }
   #teamoBtn:hover {
-    background-color: #b04c7c;
+    background-color: #b2417a;
   }
-
-  /* Página S&V */
   #pageSV {
     display: none;
     position: fixed;
@@ -127,8 +123,6 @@
     color: #e74c3c;
     text-shadow: 0 0 15px #e74c3cbb;
     margin-bottom: 30px;
-    transition: opacity 0.8s ease;
-    user-select: none;
   }
   iframe {
     border-radius: 16px;
@@ -137,76 +131,93 @@
     max-width: 720px;
     height: 405px;
     border: none;
-    user-select: none;
   }
-
-  /* Fade in/out clases */
-  .fade-in {
-    animation: fadeIn 0.8s ease forwards;
-  }
-  .fade-out {
-    animation: fadeOut 0.8s ease forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  /* Lluvia TE AMO */
-  #teAmoOverlay {
+  #pageTeAmo {
+    display: none;
     position: fixed;
     top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw; height: 100vh;
     background: #000;
-    z-index: 50;
-    pointer-events: none;
+    color: #d85ca3;
+    z-index: 30;
     overflow: hidden;
-  }
-  .teAmoText {
-    position: absolute;
     font-weight: 900;
-    font-size: 2.3rem;
-    color: #e86abf;
+    font-size: 3rem;
+    text-align: center;
     user-select: none;
-    pointer-events: none;
-    font-family: 'Poppins', sans-serif;
-    text-shadow: 0 0 6px #ff66cccc;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 20px;
+  }
+  #pageTeAmo.show {
+    opacity: 1;
+  }
+  .teamoText {
+    margin: 2px 6px;
+    animation: fall 6s linear infinite;
+    user-select: none;
     white-space: nowrap;
+  }
+  @keyframes fall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  #audioControl {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 50;
+    background: #444;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  #audioControl:hover {
+    opacity: 1;
   }
 </style>
 </head>
 <body>
-  <audio id="jazzAudio" src="https://cdn.pixabay.com/download/audio/2022/10/23/audio_d011840f7c.mp3?filename=chill-jazz-14724.mp3" loop></audio>
-
-  <canvas id="canvas"></canvas>
-
-  <div id="mainText">
-    aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
-  </div>
-
-  <div id="buttons">
-    <button id="seguirBtn">Seguir</button>
-    <button id="quedarseBtn">Quedarse</button>
-    <button id="teamoBtn">te amo</button>
-  </div>
-
-  <div id="pageSV" aria-label="Página S y V">
-    <h1>S &amp; V</h1>
-    <iframe
-      src="https://www.youtube.com/embed/rgx_peYT9ZY?si=-ZjeThUgL1sJVf7G"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      title="Video S y V"
-    ></iframe>
-  </div>
-
-  <div id="teAmoOverlay"></div>
-
+<canvas id="canvas"></canvas>
+<div id="mainText">
+  aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
+</div>
+<div id="buttons">
+  <button id="seguirBtn">Seguir</button>
+  <button id="quedarseBtn">Quedarse</button>
+  <button id="teamoBtn">Te amo</button>
+</div>
+<div id="pageSV" aria-label="Página S y V">
+  <h1>S &amp; V</h1>
+  <iframe
+    src="https://www.youtube.com/embed/rgx_peYT9ZY?si=-ZjeThUgL1sJVf7G"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    title="Video S y V"
+  ></iframe>
+</div>
+<div id="pageTeAmo" aria-label="Página Te Amo"></div>
+<button id="audioControl" title="Pausar/Reproducir música">🎷 Jazz ON</button>
+<audio id="backgroundMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_d24bb9b5ca.mp3?filename=jazz-in-paris-14831.mp3" type="audio/mpeg">
+  Tu navegador no soporta el elemento de audio.
+</audio>
 <script>
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -216,8 +227,9 @@
   const quedarseBtn = document.getElementById('quedarseBtn');
   const teamoBtn = document.getElementById('teamoBtn');
   const pageSV = document.getElementById('pageSV');
-  const teAmoOverlay = document.getElementById('teAmoOverlay');
-  const jazzAudio = document.getElementById('jazzAudio');
+  const pageTeAmo = document.getElementById('pageTeAmo');
+  const audioControl = document.getElementById('audioControl');
+  const backgroundMusic = document.getElementById('backgroundMusic');
 
   let W, H;
   function resize() {
@@ -225,13 +237,10 @@
     H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
-    teAmoOverlay.style.width = W + 'px';
-    teAmoOverlay.style.height = H + 'px';
   }
   window.addEventListener('resize', resize);
   resize();
 
-  // PARTICULAS CORAZÓN
   class Particle {
     constructor(x, y, color) {
       this.x = x;
@@ -241,7 +250,7 @@
       this.vx = (Math.random() - 0.5) * 3;
       this.vy = (Math.random() - 0.5) * 3;
       this.color = color;
-      this.radius = 2.2;
+      this.radius = 2.3;
       this.friction = 0.88;
       this.ease = 0.12;
     }
@@ -258,22 +267,18 @@
       let dy = this.destY - this.y;
       this.vx += dx * this.ease;
       this.vy += dy * this.ease;
-
       this.vx *= this.friction;
       this.vy *= this.friction;
-
       this.x += this.vx;
       this.y += this.vy;
     }
   }
-
-  // CREA PUNTOS PARA CORAZÓN (más pequeño)
   function createHeartPoints(centerX, centerY, size, count) {
     const points = [];
     for (let i = 0; i < count; i++) {
-      let t = i / count * Math.PI * 2;
+      let t = (i / count) * Math.PI * 2;
       let x = 16 * Math.pow(Math.sin(t), 3);
-      let y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+      let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
       points.push({
         x: centerX + x * size,
         y: centerY - y * size
@@ -282,221 +287,213 @@
     return points;
   }
 
-  // PARTICULAS MINI CORAZÓN LLUVIA
   class MiniHeart {
     constructor(x, y, color) {
       this.x = x;
       this.y = y;
-      this.vy = -1.2 - Math.random() * 1.6;
-      this.radius = 5;
+      this.vy = 1 + Math.random() * 1.5;
+      this.radius = 6;
       this.color = color;
       this.opacity = 1;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.rotation = Math.random() * 360;
+      this.rotationSpeed = (Math.random() - 0.5) * 4;
     }
     draw() {
       ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate((this.rotation * Math.PI) / 180);
       ctx.fillStyle = this.color;
       ctx.globalAlpha = this.opacity;
       ctx.beginPath();
-      const x = this.x;
-      const y = this.y;
-      const r = this.radius;
-      ctx.moveTo(x, y);
-      ctx.bezierCurveTo(x - r/2, y - r/2, x - r, y + r/3, x, y + r);
-      ctx.bezierCurveTo(x + r, y + r/3, x + r/2, y - r/2, x, y);
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-this.radius, -this.radius, -this.radius, this.radius / 2, 0, this.radius);
+      ctx.bezierCurveTo(this.radius, this.radius / 2, this.radius, -this.radius, 0, 0);
       ctx.fill();
       ctx.restore();
     }
     update() {
       this.y += this.vy;
-      this.opacity -= 0.01;
-      if(this.opacity < 0) this.opacity = 0;
-    }
-    isDead() {
-      return this.opacity <= 0;
+      this.x += this.vx;
+      this.rotation += this.rotationSpeed;
+      this.opacity -= 0.008;
+      if (this.opacity < 0) this.opacity = 0;
     }
   }
-
-  // PARTICULAS FUEGO LLUVIA
   class FireParticle {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vy = -1 - Math.random() * 2;
-      this.vx = (Math.random() - 0.5) * 1.2;
+      this.vx = (Math.random() - 0.5) * 2;
+      this.vy = Math.random() * -3 - 1;
       this.radius = 4 + Math.random() * 2;
+      this.life = 100 + Math.random() * 50;
       this.opacity = 1;
-      this.color = `rgba(255,${120 + Math.floor(Math.random()*80)},0,`;
     }
     draw() {
-      ctx.save();
-      let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-      gradient.addColorStop(0, this.color + this.opacity + ')');
-      gradient.addColorStop(1, this.color + '0)');
+      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      gradient.addColorStop(0, `rgba(255,${Math.floor(150 + Math.random() * 100)},0,${this.opacity})`);
+      gradient.addColorStop(1, `rgba(255,0,0,0)`);
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
-      ctx.restore();
     }
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.opacity -= 0.02;
-      if(this.opacity < 0) this.opacity = 0;
-    }
-    isDead() {
-      return this.opacity <= 0;
+      this.life--;
+      this.opacity = this.life / 150;
     }
   }
 
-  // PARTICULAS TE AMO (texto)
-  class TeAmoText {
-    constructor() {
-      this.x = Math.random() * W;
-      this.y = -30 - Math.random() * 50;
-      this.speed = 1 + Math.random() * 2;
-      this.opacity = 1;
-      this.size = 18 + Math.random() * 24;
-      this.element = document.createElement('div');
-      this.element.className = 'teAmoText';
-      this.element.textContent = 'TE AMO';
-      this.element.style.fontSize = this.size + 'px';
-      this.element.style.left = this.x + 'px';
-      this.element.style.top = this.y + 'px';
-      teAmoOverlay.appendChild(this.element);
-    }
-    update() {
-      this.y += this.speed;
-      this.opacity -= 0.005;
-      this.element.style.top = this.y + 'px';
-      this.element.style.opacity = this.opacity;
-    }
-    isDead() {
-      if(this.opacity <= 0) {
-        teAmoOverlay.removeChild(this.element);
-        return true;
-      }
-      return false;
-    }
-  }
-
-  // Variables para partículas
-  const particleCount = 250;
   const centerX = W / 2;
-  const centerY = H / 2.3;
-  const heartSize = Math.min(W, H) / 23;
-  const heartPoints = createHeartPoints(centerX, centerY, heartSize, particleCount);
+  const centerY = H / 2.8;
+  const heartSize = Math.min(W, H) / 25;
+  const particlesCount = 120;
+  const heartPoints = createHeartPoints(centerX, centerY, heartSize, particlesCount);
+  const particles = [];
 
-  let particles = [];
-  for (let i = 0; i < particleCount; i++) {
-    let px = Math.random() * W;
-    let py = Math.random() * H;
-    let p = new Particle(px, py, 'rgba(204,74,63,0.9)');
-    p.destX = heartPoints[i].x;
-    p.destY = heartPoints[i].y;
-    particles.push(p);
+  for (let p of heartPoints) {
+    particles.push(new Particle(
+      Math.random() * W,
+      Math.random() * H,
+      '#d26a5a'
+    ));
   }
 
-  let animationPhase = 'formingHeart';
+  let animationId;
   let miniHearts = [];
   let fireParticles = [];
-  let teAmoTexts = [];
+  const teamoTexts = [];
 
-  function drawCenteredText() {
-    mainText.style.display = 'block';
-  }
-
-  function animate() {
+  function animateHeart() {
     ctx.clearRect(0, 0, W, H);
-
-    if(animationPhase === 'formingHeart') {
-      let doneCount = 0;
-      for(let p of particles) {
-        p.update();
-        p.draw();
-        if(Math.abs(p.x - p.destX) < 0.4 && Math.abs(p.y - p.destY) < 0.4) doneCount++;
-      }
-      if(doneCount / particleCount > 0.9) {
-        animationPhase = 'showButtons';
-        buttons.style.display = 'flex';
-        drawCenteredText();
-        jazzAudio.play().catch(() => {});
-      }
-    } else if(animationPhase === 'showButtons' || animationPhase === 'stayed') {
-      for(let p of particles) p.draw();
-
-      if(animationPhase === 'stayed') {
-        if(Math.random() < 0.12) {
-          miniHearts.push(new MiniHeart(Math.random() * W, H + 20, 'rgba(204,74,63,0.9)'));
-        }
-        for(let i = miniHearts.length -1; i >= 0; i--) {
-          let h = miniHearts[i];
-          h.update();
-          h.draw();
-          if(h.isDead()) miniHearts.splice(i, 1);
-        }
-      }
-    } else if(animationPhase === 'seguido') {
-      ctx.clearRect(0, 0, W, H);
-
-      if(Math.random() < 0.25) {
-        fireParticles.push(new FireParticle(Math.random() * W, H + 20));
-      }
-      for(let i = fireParticles.length -1; i >= 0; i--) {
-        let f = fireParticles[i];
-        f.update();
-        f.draw();
-        if(f.isDead()) fireParticles.splice(i, 1);
-      }
-    } else if(animationPhase === 'teamo') {
-      ctx.clearRect(0, 0, W, H);
-      for(let p of particles) p.draw();
-
-      if(Math.random() < 0.3) {
-        teAmoTexts.push(new TeAmoText());
-      }
-      for(let i = teAmoTexts.length -1; i >= 0; i--) {
-        let t = teAmoTexts[i];
-        t.update();
-        if(t.isDead()) teAmoTexts.splice(i, 1);
-      }
+    for (let i = 0; i < particles.length; i++) {
+      let p = particles[i];
+      let point = heartPoints[i];
+      p.destX = point.x;
+      p.destY = point.y;
+      p.update();
+      p.draw();
     }
-
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animateHeart);
   }
 
-  seguirBtn.onclick = () => {
-    mainText.classList.add('fade-out');
-    buttons.classList.add('fade-out');
-    jazzAudio.pause();
+  function animateQuedarse() {
+    ctx.clearRect(0, 0, W, H);
+    if (Math.random() < 0.25) {
+      miniHearts.push(new MiniHeart(Math.random() * W, -20, 'rgba(231, 76, 60, 0.9)'));
+    }
+    for (let i = miniHearts.length - 1; i >= 0; i--) {
+      const h = miniHearts[i];
+      h.update();
+      h.draw();
+      if (h.opacity <= 0 || h.y > H + 50) miniHearts.splice(i, 1);
+    }
+    animationId = requestAnimationFrame(animateQuedarse);
+  }
 
-    setTimeout(() => {
-      mainText.style.display = 'none';
-      buttons.style.display = 'none';
+  function animateSeguir() {
+    ctx.clearRect(0, 0, W, H);
+    if (Math.random() < 0.4) {
+      fireParticles.push(new FireParticle(Math.random() * W, H + 20));
+    }
+    for (let i = fireParticles.length -1; i >= 0; i--) {
+      const f = fireParticles[i];
+      f.update();
+      f.draw();
+      if (f.life <= 0 || f.y < -50) fireParticles.splice(i, 1);
+    }
+    animationId = requestAnimationFrame(animateSeguir);
+  }
 
-      pageSV.classList.add('show');
-    }, 800);
+  function createTeAmoTexts() {
+    teamoTexts.length = 0;
+    pageTeAmo.innerHTML = '';
+    const textosCount = Math.floor(W / 60) * 5;
+    for (let i = 0; i < textosCount; i++) {
+      const div = document.createElement('div');
+      div.className = 'teamoText';
+      div.style.position = 'absolute';
+      div.style.left = (Math.random() * 90) + 'vw';
+      div.style.top = (-Math.random() * 100) + 'vh';
+      div.style.fontSize = (18 + Math.random() * 18) + 'px';
+      div.style.animationDelay = (Math.random() * 6) + 's';
+      div.textContent = 'TE AMO';
+      pageTeAmo.appendChild(div);
+      teamoTexts.push(div);
+    }
+  }
 
-    animationPhase = 'seguido';
-  };
-  quedarseBtn.onclick = () => {
-    animationPhase = 'stayed';
-    buttons.style.display = 'none';
+  function showPageSV() {
     mainText.style.display = 'none';
-  };
-  teamoBtn.onclick = () => {
-    animationPhase = 'teamo';
     buttons.style.display = 'none';
-    mainText.style.display = 'none';
-    teAmoOverlay.style.pointerEvents = 'auto';
-  };
+    pageTeAmo.classList.remove('show');
+    pageTeAmo.style.display = 'none';
+    pageSV.classList.add('show');
+    cancelAnimationFrame(animationId);
+    fireParticles = [];
+    animateSeguir();
+  }
 
-  window.onload = () => {
+  function showPageQuedarse() {
+    mainText.style.display = 'none';
+    buttons.style.display = 'none';
+    pageSV.classList.remove('show');
+    pageTeAmo.classList.remove('show');
+    pageTeAmo.style.display = 'none';
+    pageSV.style.display = 'none';
+    cancelAnimationFrame(animationId);
+    miniHearts = [];
+    animateQuedarse();
+  }
+
+  function showPageTeAmo() {
+    mainText.style.display = 'none';
+    buttons.style.display = 'none';
+    pageSV.classList.remove('show');
+    pageSV.style.display = 'none';
+    pageTeAmo.style.display = 'flex';
+    pageTeAmo.classList.add('show');
+    createTeAmoTexts();
+    cancelAnimationFrame(animationId);
+    ctx.clearRect(0,0,W,H);
+  }
+
+  function resetToHeart() {
     mainText.style.display = 'block';
     buttons.style.display = 'flex';
+    pageSV.classList.remove('show');
+    pageSV.style.display = 'none';
+    pageTeAmo.classList.remove('show');
+    pageTeAmo.style.display = 'none';
+    cancelAnimationFrame(animationId);
+    animateHeart();
   }
 
-  animate();
+  seguirBtn.onclick = showPageSV;
+  quedarseBtn.onclick = showPageQuedarse;
+  teamoBtn.onclick = showPageTeAmo;
+
+  // Botón música
+  let musicPlaying = false;
+  audioControl.onclick = () => {
+    if (musicPlaying) {
+      backgroundMusic.pause();
+      audioControl.textContent = "🎷 Jazz OFF";
+      musicPlaying = false;
+    } else {
+      backgroundMusic.play();
+      audioControl.textContent = "🎷 Jazz ON";
+      musicPlaying = true;
+    }
+  };
+  backgroundMusic.volume = 0.3;
+  // Auto start music (opcional, puede ser bloqueado por navegador)
+  // backgroundMusic.play().catch(()=>{});
+
+  animateHeart();
 </script>
 </body>
 </html>
