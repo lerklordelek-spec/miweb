@@ -1,139 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Animación Elegante</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Montserrat:wght@300;400&display=swap');
+  
   * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
   }
-  html, body {
-    height: 100%;
-    background: #000;
+  
+  body {
     font-family: 'Montserrat', sans-serif;
-    color: #eee;
+    background-color: #000;
+    color: #fff;
+    height: 100vh;
     overflow: hidden;
-    user-select: none;
   }
+  
   #canvas {
     position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
-    background: #000;
   }
-  #mainText {
-    position: fixed;
+  
+  #heart-container {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 1.4rem;
-    font-weight: 300;
     text-align: center;
-    max-width: 80vw;
-    z-index: 10;
+    z-index: 2;
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  #message {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
     line-height: 1.6;
-    letter-spacing: 0.05em;
+    margin-bottom: 30px;
     opacity: 0;
-    animation: fadeIn 2s ease-out forwards;
-    animation-delay: 0.5s;
-    padding: 30px;
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(5px);
-    border-radius: 8px;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
   }
-  @keyframes fadeIn {
-    to { opacity: 0.9; }
+  
+  #message.show {
+    opacity: 1;
+    transform: translateY(0);
   }
+  
   #buttons {
-    position: fixed;
-    bottom: 30px;
-    width: 100%;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    z-index: 15;
+    gap: 15px;
+    margin-top: 40px;
     opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 2s;
+    transition: opacity 1s ease 1.5s;
   }
-  button {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
-    padding: 12px 30px;
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(20,20,20,0.7);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-  }
-  button:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.3);
-  }
-  button:active {
-    transform: scale(0.95);
-  }
-  #seguirBtn {
-    border-color: rgba(74, 144, 226, 0.4);
-  }
-  #seguirBtn:hover {
-    background: rgba(74, 144, 226, 0.2);
-  }
-  #quedarseBtn {
-    border-color: rgba(226, 74, 104, 0.4);
-  }
-  #quedarseBtn:hover {
-    background: rgba(226, 74, 104, 0.2);
-  }
-  /* Segunda página */
-  #pageSV {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: #000;
-    z-index: 20;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-  #pageSV.show {
-    display: flex;
+  
+  #buttons.show {
     opacity: 1;
   }
-  #pageSV h1 {
-    font-size: 2.5rem;
-    font-weight: 300;
+  
+  button {
+    background: transparent;
     color: #fff;
-    margin-bottom: 30px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.7;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    letter-spacing: 1px;
   }
-  #pageSV iframe {
-    border-radius: 2px;
-    width: 90vw;
+  
+  button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 182, 193, 0.6);
+    transform: translateY(-2px);
+  }
+  
+  #continueBtn {
+    border-color: rgba(255, 182, 193, 0.4);
+  }
+  
+  #stayBtn {
+    border-color: rgba(173, 216, 230, 0.4);
+  }
+  
+  #specialPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+  }
+  
+  #specialPage.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  #specialPage h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+  }
+  
+  #videoContainer {
+    width: 90%;
     max-width: 800px;
+    position: relative;
+  }
+  
+  #videoContainer iframe {
+    width: 100%;
     height: calc(90vw * 9/16);
     max-height: 450px;
     border: none;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+    box-shadow: 0 0 30px rgba(255, 182, 193, 0.1);
   }
-  /* Partículas sutiles */
-  .particle {
+  
+  .close-btn {
     position: absolute;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%;
+    top: 30px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    color: #fff;
+  }
+  
+  .floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .floating-heart {
+    position: absolute;
+    font-size: 18px;
+    color: rgba(255, 182, 193, 0.6);
+    animation: float 15s linear infinite;
+    opacity: 0;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
   }
 </style>
 </head>
@@ -141,156 +200,212 @@
 
 <canvas id="canvas"></canvas>
 
-<div id="mainText">
-  Me estoy esforzando xd <br>
-  Te amo con todo mi corazón para la reina de mis sueños.
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div id="heart-container">
+  <div id="message">
+    Me estoy esforzando xd<br>
+    Te amo con todo mi corazón para la reina de mis sueños.
+  </div>
+  <div id="buttons">
+    <button id="continueBtn">Continuar</button>
+    <button id="stayBtn">Quedarse</button>
+  </div>
 </div>
 
-<div id="buttons">
-  <button id="seguirBtn">Continuar</button>
-  <button id="quedarseBtn">Permanecer</button>
-</div>
-
-<div id="pageSV" aria-label="Página Especial">
-  <h1>S & V</h1>
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/rgx_peYT9ZY?autoplay=1"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    title="Video Especial"
-  ></iframe>
+<div id="specialPage">
+  <button class="close-btn">×</button>
+  <h1>Nuestro Momento</h1>
+  <div id="videoContainer">
+    <iframe 
+      src="https://www.youtube.com/embed/rgx_peYT9ZY" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
 </div>
 
 <script>
+  // Configuración inicial
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  const mainText = document.getElementById('mainText');
+  const message = document.getElementById('message');
   const buttons = document.getElementById('buttons');
-  const seguirBtn = document.getElementById('seguirBtn');
-  const quedarseBtn = document.getElementById('quedarseBtn');
-  const pageSV = document.getElementById('pageSV');
+  const continueBtn = document.getElementById('continueBtn');
+  const stayBtn = document.getElementById('stayBtn');
+  const specialPage = document.getElementById('specialPage');
+  const closeBtn = document.querySelector('.close-btn');
+  const floatingHearts = document.getElementById('floatingHearts');
 
-  let W, H;
-  function resize() {
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W;
-    canvas.height = H;
+  let width, height;
+  let particles = [];
+  const particleCount = 250;
+  let animationFrameId;
+  let heartFormed = false;
+
+  // Paleta de colores elegante
+  const colors = {
+    heart: {
+      r: 255,
+      g: 182,
+      b: 193
+    },
+    accent: {
+      r: 173,
+      g: 216,
+      b: 230
+    }
+  };
+
+  // Inicialización
+  function init() {
+    resize();
+    createParticles();
+    createFloatingHearts();
+    animate();
+    
+    // Mostrar mensaje después de que las partículas comiencen a moverse
+    setTimeout(() => {
+      message.classList.add('show');
+    }, 1500);
+    
+    setTimeout(() => {
+      buttons.classList.add('show');
+    }, 3000);
+    
+    // Formar corazón después de un breve período
+    setTimeout(formHeart, 1000);
   }
-  window.addEventListener('resize', resize);
-  resize();
 
-  // Partículas elegantes
-  class Particle {
-    constructor() {
-      this.reset();
-      this.y = Math.random() * H;
-    }
+  // Crear partículas
+  function createParticles() {
+    particles = [];
     
-    reset() {
-      this.x = Math.random() * W;
-      this.y = -10;
-      this.size = 1 + Math.random() * 2;
-      this.speed = 0.2 + Math.random() * 0.5;
-      this.opacity = 0.1 + Math.random() * 0.3;
-      this.color = `rgba(255, 255, 255, ${this.opacity})`;
-    }
-    
-    update() {
-      this.y += this.speed;
-      if(this.y > H + 10) this.reset();
-    }
-    
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  // Líneas de conexión sutiles
-  class ConnectLine {
-    constructor(particles) {
-      this.particles = particles;
-    }
-    
-    draw() {
-      for(let i = 0; i < this.particles.length; i++) {
-        for(let j = i + 1; j < this.particles.length; j++) {
-          const dx = this.particles[i].x - this.particles[j].x;
-          const dy = this.particles[i].y - this.particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          
-          if(dist < 100) {
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - (dist/1000)})`;
-            ctx.lineWidth = 0.3;
-            ctx.beginPath();
-            ctx.moveTo(this.particles[i].x, this.particles[i].y);
-            ctx.lineTo(this.particles[j].x, this.particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 3 + 1,
+        speedX: Math.random() * 2 - 1,
+        speedY: Math.random() * 2 - 1,
+        targetX: null,
+        targetY: null,
+        color: `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, ${Math.random() * 0.5 + 0.3})`,
+        shadow: Math.random() * 10 + 5
+      });
     }
   }
 
-  const particles = [];
-  for(let i = 0; i < 60; i++) {
-    particles.push(new Particle());
+  // Crear corazones flotantes
+  function createFloatingHearts() {
+    for (let i = 0; i < 12; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${10 + Math.random() * 20}s`;
+      heart.style.animationDelay = `${Math.random() * 10}s`;
+      heart.style.fontSize = `${15 + Math.random() * 20}px`;
+      floatingHearts.appendChild(heart);
+    }
   }
-  const connectLine = new ConnectLine(particles);
 
+  // Formar corazón
+  function formHeart() {
+    if (heartFormed) return;
+    heartFormed = true;
+    
+    const centerX = width / 2;
+    const centerY = height / 2.5;
+    const heartSize = Math.min(width, height) / 4;
+    
+    particles.forEach((p, i) => {
+      const angle = (i / particleCount) * Math.PI * 2;
+      const x = 16 * Math.pow(Math.sin(angle), 3);
+      const y = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+      
+      p.targetX = centerX + x * heartSize;
+      p.targetY = centerY + y * heartSize;
+    });
+  }
+
+  // Animación
   function animate() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.fillRect(0, 0, width, height);
     
     particles.forEach(p => {
-      p.update();
-      p.draw();
+      // Mover partículas hacia su objetivo o aleatoriamente
+      if (p.targetX !== null && p.targetY !== null) {
+        p.x += (p.targetX - p.x) * 0.06;
+        p.y += (p.targetY - p.y) * 0.06;
+      } else {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        
+        // Rebotar en los bordes
+        if (p.x < 0 || p.x > width) p.speedX *= -1;
+        if (p.y < 0 || p.y > height) p.speedY *= -1;
+      }
+      
+      // Dibujar partícula con sombra
+      ctx.shadowColor = `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, 0.5)`;
+      ctx.shadowBlur = p.shadow;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
     });
     
-    connectLine.draw();
-    
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
   }
-  animate();
 
-  seguirBtn.onclick = () => {
-    mainText.style.animation = 'fadeOut 1s forwards';
-    buttons.style.animation = 'fadeOut 1s forwards';
+  // Redimensionar
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
     
-    setTimeout(() => {
-      mainText.style.display = 'none';
-      buttons.style.display = 'none';
-      pageSV.classList.add('show');
-    }, 1000);
-  };
-
-  quedarseBtn.onclick = () => {
-    mainText.style.animation = 'fadeOut 1s forwards';
-    buttons.style.animation = 'fadeOut 1s forwards';
-    
-    setTimeout(() => {
-      mainText.style.display = 'none';
-      buttons.style.display = 'none';
-      
-      // Efecto sutil de partículas
-      for(let i = 0; i < 30; i++) {
-        setTimeout(() => {
-          particles.push(new Particle());
-        }, i * 50);
-      }
-    }, 1000);
-  };
-
-  // Añadir keyframes dinámicamente
-  const styleSheet = document.styleSheets[0];
-  styleSheet.insertRule(`
-    @keyframes fadeOut {
-      to { opacity: 0; transform: translateY(10px); }
+    if (heartFormed) {
+      formHeart();
     }
-  `, styleSheet.cssRules.length);
+  }
+
+  // Event Listeners
+  window.addEventListener('resize', resize);
+  
+  continueBtn.addEventListener('click', () => {
+    specialPage.classList.add('show');
+    document.querySelector('#videoContainer iframe').src += "?autoplay=1";
+  });
+  
+  stayBtn.addEventListener('click', () => {
+    // Efecto de partículas adicionales
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        particles.push({
+          x: Math.random() * width,
+          y: height + Math.random() * 50,
+          size: Math.random() * 3 + 1,
+          speedX: Math.random() * 1 - 0.5,
+          speedY: -(Math.random() * 3 + 2),
+          targetX: null,
+          targetY: null,
+          color: `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, ${Math.random() * 0.5 + 0.3})`,
+          shadow: Math.random() * 10 + 5
+        });
+      }, i * 100);
+    }
+  });
+  
+  closeBtn.addEventListener('click', () => {
+    specialPage.classList.remove('show');
+    document.querySelector('#videoContainer iframe').src = 
+      document.querySelector('#videoContainer iframe').src.replace("?autoplay=1", "");
+  });
+
+  // Iniciar todo
+  init();
 </script>
 </body>
 </html>
