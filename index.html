@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Corazón Animado con Amor</title>
+<title>Animación Elegante</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
   html, body {
     height: 100%;
-    background: #0a0a0a;
-    font-family: 'Poppins', sans-serif;
+    background: #000;
+    font-family: 'Montserrat', sans-serif;
     color: #eee;
     overflow: hidden;
     user-select: none;
@@ -23,39 +23,31 @@
     width: 100vw; height: 100vh;
     display: block;
     z-index: 1;
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: #000;
   }
   #mainText {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #ff6b6b;
-    font-size: 1.5rem;
-    font-weight: 400;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 300;
     text-align: center;
-    max-width: 90vw;
+    max-width: 80vw;
     z-index: 10;
     line-height: 1.6;
     letter-spacing: 0.05em;
-    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-    animation: pulseText 4s ease-in-out infinite;
-    user-select: none;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+    animation-delay: 0.5s;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 107, 107, 0.2);
+    border-radius: 8px;
   }
-  @keyframes pulseText {
-    0%, 100% { 
-      opacity: 0.9;
-      transform: translate(-50%, -50%) scale(0.98);
-    }
-    50% { 
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.02);
-    }
+  @keyframes fadeIn {
+    to { opacity: 0.9; }
   }
   #buttons {
     position: fixed;
@@ -63,60 +55,43 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     z-index: 15;
-    animation: fadeInButtons 2s ease-out;
-  }
-  @keyframes fadeInButtons {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 2s;
   }
   button {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
     padding: 12px 30px;
     border-radius: 30px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(20,20,20,0.7);
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    user-select: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
+    backdrop-filter: blur(5px);
   }
-  button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-  button:hover::before {
-    transform: translateX(100%);
+  button:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
   }
   button:active {
     transform: scale(0.95);
   }
   #seguirBtn {
-    background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-    color: white;
+    border-color: rgba(74, 144, 226, 0.4);
   }
   #seguirBtn:hover {
-    background: linear-gradient(45deg, #3a7bd5 0%, #00d2ff 100%);
-    box-shadow: 0 6px 20px rgba(58, 123, 213, 0.4);
+    background: rgba(74, 144, 226, 0.2);
   }
   #quedarseBtn {
-    background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
-    color: white;
+    border-color: rgba(226, 74, 104, 0.4);
   }
   #quedarseBtn:hover {
-    background: linear-gradient(45deg, #ff5e62 0%, #ff9966 100%);
-    box-shadow: 0 6px 20px rgba(255, 94, 98, 0.4);
+    background: rgba(226, 74, 104, 0.2);
   }
   /* Segunda página */
   #pageSV {
@@ -124,96 +99,41 @@
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #f4f4f4;
+    background: #000;
     z-index: 20;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    user-select: none;
     opacity: 0;
-    transition: opacity 1.5s ease;
+    transition: opacity 1s ease;
   }
   #pageSV.show {
     display: flex;
     opacity: 1;
   }
   #pageSV h1 {
-    font-size: 4.5rem;
-    font-weight: 900;
-    color: transparent;
-    background: linear-gradient(45deg, #ff758c, #ff7eb3, #4facfe, #00f2fe);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #fff;
     margin-bottom: 30px;
     letter-spacing: 0.3em;
-    text-shadow: 0 0 15px rgba(255, 117, 140, 0.3);
-    animation: gradientShift 8s ease infinite;
-  }
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    text-transform: uppercase;
+    opacity: 0.7;
   }
   #pageSV iframe {
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
     width: 90vw;
     max-width: 800px;
     height: calc(90vw * 9/16);
     max-height: 450px;
     border: none;
-    transform: scale(0.9);
-    opacity: 0;
-    transition: all 1s ease 0.5s;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
   }
-  #pageSV.show iframe {
-    transform: scale(1);
-    opacity: 1;
-  }
-  /* Efecto de confeti */
-  .confetti {
+  /* Partículas sutiles */
+  .particle {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #f00;
-    opacity: 0;
-    z-index: 30;
-  }
-  /* Corazones flotantes */
-  .floating-hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
-  }
-  .floating-heart {
-    position: absolute;
-    font-size: 20px;
-    color: rgba(255, 107, 107, 0.7);
-    animation: float 15s linear infinite;
-    opacity: 0;
-  }
-  @keyframes float {
-    0% {
-      transform: translateY(100vh) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.7;
-    }
-    90% {
-      opacity: 0.7;
-    }
-    100% {
-      transform: translateY(-100px) rotate(360deg);
-      opacity: 0;
-    }
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
   }
 </style>
 </head>
@@ -221,22 +141,20 @@
 
 <canvas id="canvas"></canvas>
 
-<div class="floating-hearts" id="floatingHearts"></div>
-
 <div id="mainText">
-  Aún estoy aprendiendo, pero esto es para ti con todo mi cariño.<br> 
-  Eres muy especial para mí y te amo mucho ❤️
+  Esto es para ti. <br>
+  Un pequeño gesto en este espacio digital.
 </div>
 
 <div id="buttons">
-  <button id="seguirBtn">Seguir</button>
-  <button id="quedarseBtn">Quedarse</button>
+  <button id="seguirBtn">Continuar</button>
+  <button id="quedarseBtn">Permanecer</button>
 </div>
 
 <div id="pageSV" aria-label="Página Especial">
-  <h1>S &amp; V</h1>
+  <h1>S & V</h1>
   <iframe
-    src="https://www.youtube-nocookie.com/embed/rgx_peYT9ZY?autoplay=1&mute=1"
+    src="https://www.youtube-nocookie.com/embed/rgx_peYT9ZY?autoplay=1"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     title="Video Especial"
@@ -251,22 +169,6 @@
   const seguirBtn = document.getElementById('seguirBtn');
   const quedarseBtn = document.getElementById('quedarseBtn');
   const pageSV = document.getElementById('pageSV');
-  const floatingHearts = document.getElementById('floatingHearts');
-
-  // Crear corazones flotantes
-  function createFloatingHearts() {
-    for (let i = 0; i < 15; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('floating-heart');
-      heart.innerHTML = '❤️';
-      heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${10 + Math.random() * 20}s`;
-      heart.style.animationDelay = `${Math.random() * 10}s`;
-      heart.style.fontSize = `${15 + Math.random() * 30}px`;
-      floatingHearts.appendChild(heart);
-    }
-  }
-  createFloatingHearts();
 
   let W, H;
   function resize() {
@@ -278,386 +180,117 @@
   window.addEventListener('resize', resize);
   resize();
 
-  // PARTICULAS DEL CORAZÓN QUE SE FORMA
+  // Partículas elegantes
   class Particle {
-    constructor(x, y) {
-      this.x = Math.random() * W;
+    constructor() {
+      this.reset();
       this.y = Math.random() * H;
-      this.destX = x;
-      this.destY = y;
-      this.vx = 0;
-      this.vy = 0;
-      this.radius = 2 + Math.random() * 2;
-      this.color = `rgba(255, ${100 + Math.floor(Math.random() * 50)}, ${100 + Math.floor(Math.random() * 50)}, 0.9)`;
-      this.shadowBlur = 5 + Math.random() * 5;
     }
-    update() {
-      let dx = this.destX - this.x;
-      let dy = this.destY - this.y;
-      this.vx += dx * 0.1;
-      this.vy += dy * 0.1;
-      this.vx *= 0.85;
-      this.vy *= 0.85;
-      this.x += this.vx;
-      this.y += this.vy;
-      
-      // Pequeña oscilación cuando están en su lugar
-      if (Math.abs(this.x - this.destX) < 1 && Math.abs(this.y - this.destY) < 1) {
-        this.x = this.destX + Math.sin(Date.now() * 0.001 + this.destX * 0.1) * 1.5;
-        this.y = this.destY + Math.cos(Date.now() * 0.001 + this.destY * 0.1) * 1.5;
-      }
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = this.shadowBlur;
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  // FUNCION PARA CREAR PUNTOS DEL CORAZÓN
-  function createHeartPoints(cx, cy, size, count) {
-    const points = [];
-    for (let i = 0; i < count; i++) {
-      let t = (i / count) * Math.PI * 2;
-      let x = 16 * Math.pow(Math.sin(t), 3);
-      let y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-      points.push({
-        x: cx + x * size,
-        y: cy - y * size,
-      });
-    }
-    return points;
-  }
-
-  // PARTICULAS MINI CORAZÓN LLUVIA (subiendo)
-  class MiniHeart {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vy = -1.5 - Math.random() * 1.2;
-      this.vx = (Math.random() - 0.5) * 0.8;
-      this.size = 10 + Math.random() * 15;
-      this.color = `hsl(${350 + Math.random() * 20}, 90%, 60%)`;
-      this.opacity = 0.8 + Math.random() * 0.2;
-      this.rotation = Math.random() * 360;
-      this.rotationSpeed = (Math.random() - 0.5) * 4;
-      this.scale = 0.5 + Math.random() * 0.5;
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation * Math.PI / 180);
-      ctx.scale(this.scale, this.scale);
-      ctx.globalAlpha = this.opacity;
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 10;
-      
-      // Dibujar corazón más estilizado
-      ctx.beginPath();
-      const topCurveHeight = this.size * 0.3;
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(
-        0, -this.size/2, 
-        -this.size/2, -this.size/2 - topCurveHeight, 
-        -this.size/2, 0
-      );
-      ctx.bezierCurveTo(
-        -this.size/2, this.size/3, 
-        0, this.size/1.5, 
-        0, this.size
-      );
-      ctx.bezierCurveTo(
-        0, this.size/1.5, 
-        this.size/2, this.size/3, 
-        this.size/2, 0
-      );
-      ctx.bezierCurveTo(
-        this.size/2, -this.size/2 - topCurveHeight, 
-        0, -this.size/2, 
-        0, 0
-      );
-      
-      ctx.fill();
-      ctx.restore();
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.rotation += this.rotationSpeed;
-      this.opacity -= 0.008;
-      if(this.opacity < 0) this.opacity = 0;
-      this.scale += 0.005;
-    }
-    isDead() {
-      return this.opacity <= 0 || this.y < -50;
-    }
-  }
-
-  // PARTICULAS FUEGO LLUVIA PARA SEGUNDA PAGINA (subiendo)
-  class FireParticle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vy = -1.5 - Math.random() * 2.5;
-      this.vx = (Math.random() - 0.5) * 1.5;
-      this.radius = 3 + Math.random() * 4;
-      this.opacity = 1;
-      this.color1 = `rgba(255, ${100 + Math.floor(Math.random()*100)}, 50, `;
-      this.color2 = `rgba(255, ${150 + Math.floor(Math.random()*50)}, 100, `;
-      this.life = 100 + Math.random() * 50;
-      this.currentLife = this.life;
-    }
-    draw() {
-      ctx.save();
-      let gradient = ctx.createRadialGradient(
-        this.x, this.y, 0, 
-        this.x, this.y, this.radius
-      );
-      gradient.addColorStop(0, this.color2 + this.opacity + ')');
-      gradient.addColorStop(0.7, this.color1 + (this.opacity * 0.7) + ')');
-      gradient.addColorStop(1, this.color1 + '0)');
-      
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-      ctx.fill();
-      ctx.restore();
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.currentLife--;
-      this.opacity = this.currentLife / this.life;
-      this.radius *= 0.99;
-      if (this.currentLife <= 0) this.currentLife = 0;
-    }
-    isDead() {
-      return this.currentLife <= 0 || this.y < -50;
-    }
-  }
-
-  // CONFETI PARA CELEBRACIÓN
-  class Confetti {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.colors = [
-        '#ff6b6b', '#4facfe', '#00f2fe', '#ff758c', '#ff7eb3', 
-        '#a18cd1', '#fbc2eb', '#84fab0', '#8fd3f4', '#a6c1ee'
-      ];
-      this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-      this.angle = Math.random() * Math.PI * 2;
-      this.speed = 2 + Math.random() * 5;
-      this.rotation = Math.random() * 360;
-      this.rotationSpeed = (Math.random() - 0.5) * 20;
-      this.size = 5 + Math.random() * 10;
-      this.shape = Math.random() > 0.5 ? 'circle' : 'rect';
-      this.life = 100 + Math.random() * 50;
-      this.currentLife = this.life;
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation * Math.PI / 180);
-      ctx.globalAlpha = this.currentLife / this.life;
-      
-      ctx.fillStyle = this.color;
-      if (this.shape === 'circle') {
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
-      }
-      
-      ctx.restore();
-    }
-    update() {
-      this.x += Math.cos(this.angle) * this.speed;
-      this.y += Math.sin(this.angle) * this.speed + 1; // +1 para gravedad
-      this.rotation += this.rotationSpeed;
-      this.currentLife--;
-      if (this.currentLife <= 0) this.currentLife = 0;
-    }
-    isDead() {
-      return this.currentLife <= 0 || this.y > H + 50;
-    }
-  }
-
-  const particleCount = 250;
-  const heartSize = Math.min(W, H) / 15;
-  let heartPoints = createHeartPoints(W/2, H/2.5, heartSize, particleCount);
-  let particles = [];
-  let miniHearts = [];
-  let fireParticles = [];
-  let confettiParticles = [];
-  let state = 'formingHeart'; // 'formingHeart', 'quedarse', 'seguir'
-  let lastFrameTime = 0;
-  let frameCount = 0;
-
-  function initParticles() {
-    particles = [];
-    for(let i=0; i<particleCount; i++) {
-      particles.push(new Particle(heartPoints[i].x, heartPoints[i].y));
-    }
-  }
-  initParticles();
-
-  function createConfettiBurst(x, y, count) {
-    for (let i = 0; i < count; i++) {
-      confettiParticles.push(new Confetti(x, y));
-    }
-  }
-
-  function animate(currentTime) {
-    if (!lastFrameTime) lastFrameTime = currentTime;
-    const deltaTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
-    frameCount++;
     
-    // Limpiar canvas con un fade sutil
-    ctx.fillStyle = 'rgba(15, 12, 41, 0.1)';
-    ctx.fillRect(0, 0, W, H);
-    
-    // Dibujar estrellas de fondo
-    if (frameCount % 3 === 0 && state === 'formingHeart') {
-      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.3})`;
-      ctx.fillRect(
-        Math.random() * W, 
-        Math.random() * H, 
-        1 + Math.random() * 2, 
-        1 + Math.random() * 2
-      );
+    reset() {
+      this.x = Math.random() * W;
+      this.y = -10;
+      this.size = 1 + Math.random() * 2;
+      this.speed = 0.2 + Math.random() * 0.5;
+      this.opacity = 0.1 + Math.random() * 0.3;
+      this.color = `rgba(255, 255, 255, ${this.opacity})`;
     }
+    
+    update() {
+      this.y += this.speed;
+      if(this.y > H + 10) this.reset();
+    }
+    
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
-    if(state === 'formingHeart') {
-      let arrivedCount = 0;
-      for(let p of particles) {
-        p.update();
-        p.draw();
-        if(Math.abs(p.x - p.destX) < 0.5 && Math.abs(p.y - p.destY) < 0.5) {
-          arrivedCount++;
-          p.x = p.destX;
-          p.y = p.destY;
-          p.vx = 0;
-          p.vy = 0;
+  // Líneas de conexión sutiles
+  class ConnectLine {
+    constructor(particles) {
+      this.particles = particles;
+    }
+    
+    draw() {
+      for(let i = 0; i < this.particles.length; i++) {
+        for(let j = i + 1; j < this.particles.length; j++) {
+          const dx = this.particles[i].x - this.particles[j].x;
+          const dy = this.particles[i].y - this.particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if(dist < 100) {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - (dist/1000)})`;
+            ctx.lineWidth = 0.3;
+            ctx.beginPath();
+            ctx.moveTo(this.particles[i].x, this.particles[i].y);
+            ctx.lineTo(this.particles[j].x, this.particles[j].y);
+            ctx.stroke();
+          }
         }
       }
-      if(arrivedCount === particles.length) {
-        state = 'heartFormed';
-        // Pequeña explosión de confeti cuando se forma el corazón
-        createConfettiBurst(W/2, H/2.5, 30);
-      }
     }
-    else if(state === 'heartFormed') {
-      for(let p of particles) {
-        p.draw();
-      }
-      
-      // Ocasionalmente agregar confeti
-      if (Math.random() < 0.03) {
-        createConfettiBurst(
-          W/2 + (Math.random() - 0.5) * 100, 
-          H/2.5 + (Math.random() - 0.5) * 100, 
-          5
-        );
-      }
-    }
-    else if(state === 'quedarse') {
-      // Mini corazones subiendo
-      if(Math.random() < 0.4) {
-        let x = Math.random() * W;
-        let y = H + 20;
-        miniHearts.push(new MiniHeart(x, y));
-      }
-      for(let i = miniHearts.length -1; i >= 0; i--) {
-        let mh = miniHearts[i];
-        mh.update();
-        if(mh.isDead()) miniHearts.splice(i,1);
-        else mh.draw();
-      }
-      
-      // Ocasionalmente agregar confeti
-      if (Math.random() < 0.05) {
-        createConfettiBurst(
-          Math.random() * W, 
-          H + 10, 
-          3
-        );
-      }
-    }
-    else if(state === 'seguir') {
-      // Fuego subiendo
-      if(Math.random() < 0.45) {
-        let x = Math.random() * W;
-        let y = H + 10;
-        fireParticles.push(new FireParticle(x, y));
-      }
-      for(let i = fireParticles.length -1; i >= 0; i--) {
-        let fp = fireParticles[i];
-        fp.update();
-        if(fp.isDead()) fireParticles.splice(i,1);
-        else fp.draw();
-      }
-      
-      // Ocasionalmente agregar confeti
-      if (Math.random() < 0.1) {
-        createConfettiBurst(
-          Math.random() * W, 
-          H + 10, 
-          5
-        );
-      }
-    }
-    
-    // Actualizar y dibujar confeti
-    for(let i = confettiParticles.length -1; i >= 0; i--) {
-      let cp = confettiParticles[i];
-      cp.update();
-      if(cp.isDead()) confettiParticles.splice(i,1);
-      else cp.draw();
-    }
+  }
 
+  const particles = [];
+  for(let i = 0; i < 60; i++) {
+    particles.push(new Particle());
+  }
+  const connectLine = new ConnectLine(particles);
+
+  function animate() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, W, H);
+    
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    
+    connectLine.draw();
+    
     requestAnimationFrame(animate);
   }
-  animate(0);
+  animate();
 
   seguirBtn.onclick = () => {
-    state = 'seguir';
-    mainText.style.display = 'none';
-    buttons.style.display = 'none';
-    
-    // Gran explosión de confeti
-    for (let i = 0; i < 5; i++) {
-      setTimeout(() => {
-        createConfettiBurst(W/2, H/2, 50);
-      }, i * 200);
-    }
+    mainText.style.animation = 'fadeOut 1s forwards';
+    buttons.style.animation = 'fadeOut 1s forwards';
     
     setTimeout(() => {
+      mainText.style.display = 'none';
+      buttons.style.display = 'none';
       pageSV.classList.add('show');
     }, 1000);
   };
 
   quedarseBtn.onclick = () => {
-    state = 'quedarse';
-    mainText.style.display = 'none';
-    buttons.style.display = 'none';
+    mainText.style.animation = 'fadeOut 1s forwards';
+    buttons.style.animation = 'fadeOut 1s forwards';
     
-    // Gran explosión de corazones
-    for (let i = 0; i < 100; i++) {
-      setTimeout(() => {
-        miniHearts.push(new MiniHeart(
-          W/2 + (Math.random() - 0.5) * 200, 
-          H + 20
-        ));
-      }, i * 50);
-    }
+    setTimeout(() => {
+      mainText.style.display = 'none';
+      buttons.style.display = 'none';
+      
+      // Efecto sutil de partículas
+      for(let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          particles.push(new Particle());
+        }, i * 50);
+      }
+    }, 1000);
   };
+
+  // Añadir keyframes dinámicamente
+  const styleSheet = document.styleSheets[0];
+  styleSheet.insertRule(`
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(10px); }
+    }
+  `, styleSheet.cssRules.length);
 </script>
 </body>
 </html>
