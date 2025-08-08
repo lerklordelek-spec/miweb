@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti</title>
+<title>S & V</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Montserrat:wght@300;400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap');
   
   * {
     margin: 0;
@@ -31,7 +31,7 @@
     z-index: 1;
   }
   
-  #heart-container {
+  #main-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -43,15 +43,15 @@
   }
   
   #message {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
     line-height: 1.6;
     margin-bottom: 30px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1.5s ease, transform 1.5s ease;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
+    font-weight: 500;
   }
   
   #message.show {
@@ -82,25 +82,16 @@
     cursor: pointer;
     transition: all 0.4s ease;
     border-radius: 30px;
-    backdrop-filter: blur(5px);
     letter-spacing: 1px;
+    min-width: 120px;
   }
   
   button:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 182, 193, 0.6);
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.6);
   }
   
-  #continueBtn {
-    border-color: rgba(255, 182, 193, 0.4);
-  }
-  
-  #stayBtn {
-    border-color: rgba(173, 216, 230, 0.4);
-  }
-  
-  #specialPage {
+  #special-page {
     position: fixed;
     top: 0;
     left: 0;
@@ -117,33 +108,32 @@
     transition: opacity 1s ease;
   }
   
-  #specialPage.show {
+  #special-page.show {
     opacity: 1;
     pointer-events: all;
   }
   
-  #specialPage h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    font-size: 2.2rem;
+  #special-page h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 3rem;
     margin-bottom: 40px;
     letter-spacing: 3px;
     color: rgba(255, 255, 255, 0.9);
     text-align: center;
   }
   
-  #videoContainer {
+  #video-container {
     width: 90%;
     max-width: 800px;
     position: relative;
   }
   
-  #videoContainer iframe {
+  #video-container iframe {
     width: 100%;
     height: calc(90vw * 9/16);
     max-height: 450px;
     border: none;
-    box-shadow: 0 0 30px rgba(255, 182, 193, 0.1);
   }
   
   .close-btn {
@@ -161,62 +151,27 @@
   .close-btn:hover {
     color: #fff;
   }
-  
-  .floating-hearts {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  .floating-heart {
-    position: absolute;
-    font-size: 18px;
-    color: rgba(255, 182, 193, 0.6);
-    animation: float 15s linear infinite;
-    opacity: 0;
-  }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(100vh) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.6;
-    }
-    90% {
-      opacity: 0.6;
-    }
-    100% {
-      transform: translateY(-100px) rotate(360deg);
-      opacity: 0;
-    }
-  }
 </style>
 </head>
 <body>
 
 <canvas id="canvas"></canvas>
 
-<div class="floating-hearts" id="floatingHearts"></div>
-
-<div id="heart-container">
+<div id="main-content">
   <div id="message">
     Me estoy esforzando xd<br>
     Te amo con todo mi corazón para la reina de mis sueños.
   </div>
   <div id="buttons">
-    <button id="continueBtn">Continuar</button>
-    <button id="stayBtn">Quedarse</button>
+    <button id="continue-btn">Continuar</button>
+    <button id="stay-btn">Quedarse</button>
   </div>
 </div>
 
-<div id="specialPage">
+<div id="special-page">
   <button class="close-btn">×</button>
-  <h1>Nuestro Momento</h1>
-  <div id="videoContainer">
+  <h1>S & V</h1>
+  <div id="video-container">
     <iframe 
       src="https://www.youtube.com/embed/rgx_peYT9ZY" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -231,50 +186,35 @@
   const ctx = canvas.getContext('2d');
   const message = document.getElementById('message');
   const buttons = document.getElementById('buttons');
-  const continueBtn = document.getElementById('continueBtn');
-  const stayBtn = document.getElementById('stayBtn');
-  const specialPage = document.getElementById('specialPage');
+  const continueBtn = document.getElementById('continue-btn');
+  const stayBtn = document.getElementById('stay-btn');
+  const specialPage = document.getElementById('special-page');
   const closeBtn = document.querySelector('.close-btn');
-  const floatingHearts = document.getElementById('floatingHearts');
 
   let width, height;
   let particles = [];
-  const particleCount = 250;
+  const particleCount = 200;
   let animationFrameId;
   let heartFormed = false;
-
-  // Paleta de colores elegante
-  const colors = {
-    heart: {
-      r: 255,
-      g: 182,
-      b: 193
-    },
-    accent: {
-      r: 173,
-      g: 216,
-      b: 230
-    }
-  };
 
   // Inicialización
   function init() {
     resize();
     createParticles();
-    createFloatingHearts();
     animate();
     
-    // Mostrar mensaje después de que las partículas comiencen a moverse
+    // Mostrar mensaje después de 1 segundo
     setTimeout(() => {
       message.classList.add('show');
-    }, 1500);
+    }, 1000);
     
+    // Mostrar botones después de 2.5 segundos
     setTimeout(() => {
       buttons.classList.add('show');
-    }, 3000);
+    }, 2500);
     
-    // Formar corazón después de un breve período
-    setTimeout(formHeart, 1000);
+    // Formar corazón después de 1.5 segundos
+    setTimeout(formHeart, 1500);
   }
 
   // Crear partículas
@@ -285,28 +225,13 @@
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 3 + 1,
+        size: Math.random() * 2 + 1,
         speedX: Math.random() * 2 - 1,
         speedY: Math.random() * 2 - 1,
         targetX: null,
         targetY: null,
-        color: `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, ${Math.random() * 0.5 + 0.3})`,
-        shadow: Math.random() * 10 + 5
+        color: `rgba(255, ${Math.floor(150 + Math.random() * 105)}, ${Math.floor(180 + Math.random() * 75)}, ${Math.random() * 0.5 + 0.3})`
       });
-    }
-  }
-
-  // Crear corazones flotantes
-  function createFloatingHearts() {
-    for (let i = 0; i < 12; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('floating-heart');
-      heart.innerHTML = '❤️';
-      heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${10 + Math.random() * 20}s`;
-      heart.style.animationDelay = `${Math.random() * 10}s`;
-      heart.style.fontSize = `${15 + Math.random() * 20}px`;
-      floatingHearts.appendChild(heart);
     }
   }
 
@@ -331,14 +256,14 @@
 
   // Animación
   function animate() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
     ctx.fillRect(0, 0, width, height);
     
     particles.forEach(p => {
       // Mover partículas hacia su objetivo o aleatoriamente
       if (p.targetX !== null && p.targetY !== null) {
-        p.x += (p.targetX - p.x) * 0.06;
-        p.y += (p.targetY - p.y) * 0.06;
+        p.x += (p.targetX - p.x) * 0.05;
+        p.y += (p.targetY - p.y) * 0.05;
       } else {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -348,14 +273,11 @@
         if (p.y < 0 || p.y > height) p.speedY *= -1;
       }
       
-      // Dibujar partícula con sombra
-      ctx.shadowColor = `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, 0.5)`;
-      ctx.shadowBlur = p.shadow;
+      // Dibujar partícula
       ctx.fillStyle = p.color;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
-      ctx.shadowBlur = 0;
     });
     
     animationFrameId = requestAnimationFrame(animate);
@@ -376,32 +298,29 @@
   
   continueBtn.addEventListener('click', () => {
     specialPage.classList.add('show');
-    document.querySelector('#videoContainer iframe').src += "?autoplay=1";
+    document.querySelector('#video-container iframe').src += "?autoplay=1";
   });
   
   stayBtn.addEventListener('click', () => {
     // Efecto de partículas adicionales
-    for (let i = 0; i < 30; i++) {
-      setTimeout(() => {
-        particles.push({
-          x: Math.random() * width,
-          y: height + Math.random() * 50,
-          size: Math.random() * 3 + 1,
-          speedX: Math.random() * 1 - 0.5,
-          speedY: -(Math.random() * 3 + 2),
-          targetX: null,
-          targetY: null,
-          color: `rgba(${colors.heart.r}, ${colors.heart.g}, ${colors.heart.b}, ${Math.random() * 0.5 + 0.3})`,
-          shadow: Math.random() * 10 + 5
-        });
-      }, i * 100);
+    for (let i = 0; i < 20; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: height + Math.random() * 50,
+        size: Math.random() * 2 + 1,
+        speedX: Math.random() * 1 - 0.5,
+        speedY: -(Math.random() * 3 + 2),
+        targetX: null,
+        targetY: null,
+        color: `rgba(255, ${Math.floor(150 + Math.random() * 105)}, ${Math.floor(180 + Math.random() * 75)}, ${Math.random() * 0.5 + 0.3})`
+      });
     }
   });
   
   closeBtn.addEventListener('click', () => {
     specialPage.classList.remove('show');
-    document.querySelector('#videoContainer iframe').src = 
-      document.querySelector('#videoContainer iframe').src.replace("?autoplay=1", "");
+    document.querySelector('#video-container iframe').src = 
+      document.querySelector('#video-container iframe').src.replace("?autoplay=1", "");
   });
 
   // Iniciar todo
