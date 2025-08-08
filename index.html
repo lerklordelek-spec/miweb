@@ -1,499 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Corazón Animado</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corazón Animado Optimizado</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  html, body {
-    height: 100%;
-    background: #000;
-    font-family: 'Poppins', sans-serif;
-    color: #eee;
-    overflow: hidden;
-    user-select: none;
-  }
-  #canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    display: block;
-    z-index: 1;
-    background: #000;
-  }
-  #mainText {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #d26a5a;
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-align: center;
-    max-width: 90vw;
-    z-index: 10;
-    user-select: none;
-    line-height: 1.4;
-    letter-spacing: 0.02em;
-    text-shadow: 0 0 4px #b84e42aa;
-    animation: pulseText 3s ease-in-out infinite;
-    opacity: 1;
-    display: block;
-  }
-  @keyframes pulseText {
-    0%, 100% { opacity: 0.9; }
-    50% { opacity: 1; }
-  }
-  #buttons {
-    position: fixed;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-    z-index: 15;
-    display: flex;
-    gap: 25px;
-    justify-content: center;
-  }
-  button {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    padding: 12px 36px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.15s ease;
-    user-select: none;
-  }
-  button:active {
-    transform: scale(0.95);
-  }
-  #seguirBtn {
-    background-color: #2ecc71;
-    color: white;
-  }
-  #seguirBtn:hover {
-    background-color: #27ae60;
-  }
-  #quedarseBtn {
-    background-color: #e74c3c;
-    color: white;
-  }
-  #quedarseBtn:hover {
-    background-color: #c0392b;
-  }
-  #teamoBtn {
-    background-color: #d85ca3;
-    color: white;
-  }
-  #teamoBtn:hover {
-    background-color: #b2417a;
-  }
-  #pageSV {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: #121212;
-    color: #f4f4f4;
-    z-index: 20;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-weight: 700;
-    font-size: 5rem;
-    text-align: center;
-    user-select: none;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-  }
-  #pageSV.show {
-    display: flex;
-    opacity: 1;
-  }
-  #pageSV h1 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    letter-spacing: 0.3em;
-    color: #e74c3c;
-    text-shadow: 0 0 15px #e74c3cbb;
-    margin-bottom: 30px;
-  }
-  iframe {
-    border-radius: 16px;
-    box-shadow: 0 0 30px #e74c3caa;
-    width: 90vw;
-    max-width: 720px;
-    height: 405px;
-    border: none;
-  }
-  #pageTeAmo {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: #000;
-    color: #d85ca3;
-    z-index: 30;
-    overflow: hidden;
-    font-weight: 900;
-    font-size: 3rem;
-    text-align: center;
-    user-select: none;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    padding: 20px;
-  }
-  #pageTeAmo.show {
-    opacity: 1;
-  }
-  .teamoText {
-    margin: 2px 6px;
-    animation: fall 6s linear infinite;
-    user-select: none;
-    white-space: nowrap;
-  }
-  @keyframes fall {
-    0% {
-      transform: translateY(-100vh) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(110vh) rotate(360deg);
-      opacity: 0;
-    }
-  }
-  #audioControl {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 50;
-    background: #444;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    user-select: none;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-  #audioControl:hover {
-    opacity: 1;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #000; font-family: 'Poppins', sans-serif; overflow: hidden; user-select: none; }
+  #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; background: #000; }
+  #mainText { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #d26a5a; font-size: 1.2rem; font-weight: 600; text-align: center; max-width: 90vw; z-index: 10; line-height:1.4; letter-spacing:0.02em; text-shadow:0 0 4px #b84e42aa; animation:pulseText 3s ease-in-out infinite; display:block; }
+  @keyframes pulseText { 0%,100%{opacity:0.9;}50%{opacity:1;} }
+  #buttons { position: fixed; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 15; }
+  button { font-family: 'Poppins', sans-serif; font-weight:700; font-size:1rem; padding:10px 20px; border-radius:25px; border:none; cursor:pointer; transition:0.2s; }
+  button:active { transform: scale(0.95); }
+  #seguirBtn{background:#2ecc71;color:#fff;}#quedarseBtn{background:#e74c3c;color:#fff;}#teamoBtn{background:#d85ca3;color:#fff;}
+  #pageSV, #pageTeAmo { position:fixed; top:0; left:0; width:100vw; height:100vh; display:none; align-items:center; justify-content:center; flex-direction:column; z-index:20; transition:opacity 0.5s ease; }
+  #pageSV{background:#121212;color:#f4f4f4;}#pageSV.show, #pageTeAmo.show { display:flex; opacity:1; }
+  #pageSV h1{font-size:4rem; font-weight:900; color:#e74c3c; text-shadow:0 0 10px #e74c3caa; margin-bottom:20px;}
+  iframe{border-radius:12px; box-shadow:0 0 20px #e74c3c88; width:80vw; max-width:600px; height:338px;}
+  #pageTeAmo{background:#000;color:#d85ca3; font-size:2rem; font-weight:900; flex-wrap:wrap; padding:10px; overflow:hidden;}
+  .falling { position:absolute; animation:fall 5s linear infinite; white-space:nowrap;}
+  @keyframes fall { 0%{transform:translateY(-100vh);}100%{transform:translateY(110vh);} }
+  #audioControl { position:fixed; top:10px; right:10px; z-index:50; background:#444; color:#fff; border:none; padding:6px 10px; border-radius:15px; cursor:pointer; opacity:0.8;}
+  #audioControl:hover{opacity:1;}
 </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
-<div id="mainText">
-  aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
-</div>
+<div id="mainText">aun estoy aprendiendo pero esto es para ti jsksjsk,<br>te amo mucho :3</div>
 <div id="buttons">
   <button id="seguirBtn">Seguir</button>
   <button id="quedarseBtn">Quedarse</button>
   <button id="teamoBtn">Te amo</button>
 </div>
-<div id="pageSV" aria-label="Página S y V">
+<div id="pageSV">
   <h1>S &amp; V</h1>
-  <iframe
-    src="https://www.youtube.com/embed/rgx_peYT9ZY?si=-ZjeThUgL1sJVf7G"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    title="Video S y V"
-  ></iframe>
+  <iframe src="https://www.youtube-nocookie.com/embed/7UXrXyOaH4c?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
-<div id="pageTeAmo" aria-label="Página Te Amo"></div>
-<button id="audioControl" title="Pausar/Reproducir música">🎷 Jazz ON</button>
-<audio id="backgroundMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_d24bb9b5ca.mp3?filename=jazz-in-paris-14831.mp3" type="audio/mpeg">
-  Tu navegador no soporta el elemento de audio.
-</audio>
+<div id="pageTeAmo"></div>
+<button id="audioControl">🎷 Jazz</button>
+<audio id="backgroundMusic" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_d24bb9b5ca.mp3?filename=jazz-in-paris-14831.mp3" loop></audio>
 <script>
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  const mainText = document.getElementById('mainText');
-  const buttons = document.getElementById('buttons');
-  const seguirBtn = document.getElementById('seguirBtn');
-  const quedarseBtn = document.getElementById('quedarseBtn');
-  const teamoBtn = document.getElementById('teamoBtn');
-  const pageSV = document.getElementById('pageSV');
-  const pageTeAmo = document.getElementById('pageTeAmo');
-  const audioControl = document.getElementById('audioControl');
-  const backgroundMusic = document.getElementById('backgroundMusic');
+const c=document.getElementById('canvas'), ctx=c.getContext('2d'),
+ mainText=document.getElementById('mainText'), buttons=document.getElementById('buttons'),
+ seguirBtn=document.getElementById('seguirBtn'), quedarseBtn=document.getElementById('quedarseBtn'),
+ teamoBtn=document.getElementById('teamoBtn'), pageSV=document.getElementById('pageSV'),
+ pageTeAmo=document.getElementById('pageTeAmo'), audioControl=document.getElementById('audioControl'),
+ bgm=document.getElementById('backgroundMusic');
+let W,H;
+function resize(){W=window.innerWidth;H=window.innerHeight;c.width=W;c.height=H;}
+window.onresize=resize;resize();
 
-  let W, H;
-  function resize() {
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W;
-    canvas.height = H;
-  }
-  window.addEventListener('resize', resize);
-  resize();
+class Particle{
+  constructor(x,y){this.x=Math.random()*W; this.y=Math.random()*H; this.destX=x; this.destY=y; this.vx=0; this.vy=0;}
+  update(){this.vx+=(this.destX-this.x)*0.1;this.vy+=(this.destY-this.y)*0.1;this.x+=this.vx*(.9);this.y+=this.vy*(.9);}
+  draw(){ctx.fillStyle='#d26a5a';ctx.beginPath();ctx.arc(this.x,this.y,2,0,2*Math.PI);ctx.fill();}
+}
+function createHeart(count){
+  const pts=[];for(let i=0;i<count;i++){let t=i/count * Math.PI*2;
+    let x=16*Math.pow(Math.sin(t),3), y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    pts.push({x:W/2+x*W/60, y:H/2 - y*H/60});}
+  return pts;
+}
+const heartPts=createHeart(80), parts=heartPts.map(p=>new Particle(p.x,p.y));
+let mode='heart', mini=[], fire=[];
 
-  class Particle {
-    constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.destX = x;
-      this.destY = y;
-      this.vx = (Math.random() - 0.5) * 3;
-      this.vy = (Math.random() - 0.5) * 3;
-      this.color = color;
-      this.radius = 2.3;
-      this.friction = 0.88;
-      this.ease = 0.12;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 0;
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    update() {
-      let dx = this.destX - this.x;
-      let dy = this.destY - this.y;
-      this.vx += dx * this.ease;
-      this.vy += dy * this.ease;
-      this.vx *= this.friction;
-      this.vy *= this.friction;
-      this.x += this.vx;
-      this.y += this.vy;
-    }
-  }
-  function createHeartPoints(centerX, centerY, size, count) {
-    const points = [];
-    for (let i = 0; i < count; i++) {
-      let t = (i / count) * Math.PI * 2;
-      let x = 16 * Math.pow(Math.sin(t), 3);
-      let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-      points.push({
-        x: centerX + x * size,
-        y: centerY - y * size
-      });
-    }
-    return points;
-  }
+function draw(){ctx.clearRect(0,0,W,H);
+  if(mode==='heart'){parts.forEach(p=>{p.update();p.draw();});}
+  else if(mode==='quedarse'){if(Math.random()<0.2) mini.push({x:Math.random()*W,y:-10,rot:Math.random()*360}); mini.forEach(m=>{m.y+=2; m.rot+=2; ctx.save(); ctx.translate(m.x,m.y); ctx.rotate(m.rot*Math.PI/180); ctx.fillStyle='#e74c3c';ctx.fillText('❤',0,0); ctx.restore();});}
+  else if(mode==='seguir'){if(Math.random()<0.3) fire.push({x:Math.random()*W,y:H,vy:-Math.random()*3-1,alpha:1}); fire.forEach((f,i)=>{ctx.fillStyle=`rgba(255,${Math.random()*155+100},0,${f.alpha.toFixed(2)})`; ctx.beginPath(); ctx.arc(f.x,f.y,Math.random()*4+2,0,2*Math.PI); ctx.fill(); f.y+=f.vy; f.alpha-=0.01; if(f.alpha<=0) fire.splice(i,1);});}
+  requestAnimationFrame(draw);
+}
+draw();
 
-  class MiniHeart {
-    constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.vy = 1 + Math.random() * 1.5;
-      this.radius = 6;
-      this.color = color;
-      this.opacity = 1;
-      this.vx = (Math.random() - 0.5) * 0.5;
-      this.rotation = Math.random() * 360;
-      this.rotationSpeed = (Math.random() - 0.5) * 4;
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate((this.rotation * Math.PI) / 180);
-      ctx.fillStyle = this.color;
-      ctx.globalAlpha = this.opacity;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-this.radius, -this.radius, -this.radius, this.radius / 2, 0, this.radius);
-      ctx.bezierCurveTo(this.radius, this.radius / 2, this.radius, -this.radius, 0, 0);
-      ctx.fill();
-      ctx.restore();
-    }
-    update() {
-      this.y += this.vy;
-      this.x += this.vx;
-      this.rotation += this.rotationSpeed;
-      this.opacity -= 0.008;
-      if (this.opacity < 0) this.opacity = 0;
-    }
-  }
-  class FireParticle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vx = (Math.random() - 0.5) * 2;
-      this.vy = Math.random() * -3 - 1;
-      this.radius = 4 + Math.random() * 2;
-      this.life = 100 + Math.random() * 50;
-      this.opacity = 1;
-    }
-    draw() {
-      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-      gradient.addColorStop(0, `rgba(255,${Math.floor(150 + Math.random() * 100)},0,${this.opacity})`);
-      gradient.addColorStop(1, `rgba(255,0,0,0)`);
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.life--;
-      this.opacity = this.life / 150;
-    }
-  }
+seguirBtn.onclick=()=>{mode='seguir'; mainText.style.display='none'; buttons.style.display='none'; pageSV.classList.add('show');}
+quedarseBtn.onclick=()=>{mode='quedarse'; mainText.style.display='none'; buttons.style.display='none';}
+teamoBtn.onclick=()=>{mode='teamo'; mainText.style.display='none'; buttons.style.display='none'; pageTeAmo.classList.add('show'); for(let i=0;i<30;i++){const d=document.createElement('div');d.className='falling'; d.style.left=Math.random()*100+'vw'; d.style.fontSize=(20+Math.random()*20)+'px'; d.textContent='TE AMO'; pageTeAmo.appendChild(d);} }
 
-  const centerX = W / 2;
-  const centerY = H / 2.8;
-  const heartSize = Math.min(W, H) / 25;
-  const particlesCount = 120;
-  const heartPoints = createHeartPoints(centerX, centerY, heartSize, particlesCount);
-  const particles = [];
+let playing=false;
+audioControl.onclick=()=>{
+  playing ? bgm.pause() : bgm.play();
+  playing=!playing;
+};
 
-  for (let p of heartPoints) {
-    particles.push(new Particle(
-      Math.random() * W,
-      Math.random() * H,
-      '#d26a5a'
-    ));
-  }
-
-  let animationId;
-  let miniHearts = [];
-  let fireParticles = [];
-  const teamoTexts = [];
-
-  function animateHeart() {
-    ctx.clearRect(0, 0, W, H);
-    for (let i = 0; i < particles.length; i++) {
-      let p = particles[i];
-      let point = heartPoints[i];
-      p.destX = point.x;
-      p.destY = point.y;
-      p.update();
-      p.draw();
-    }
-    animationId = requestAnimationFrame(animateHeart);
-  }
-
-  function animateQuedarse() {
-    ctx.clearRect(0, 0, W, H);
-    if (Math.random() < 0.25) {
-      miniHearts.push(new MiniHeart(Math.random() * W, -20, 'rgba(231, 76, 60, 0.9)'));
-    }
-    for (let i = miniHearts.length - 1; i >= 0; i--) {
-      const h = miniHearts[i];
-      h.update();
-      h.draw();
-      if (h.opacity <= 0 || h.y > H + 50) miniHearts.splice(i, 1);
-    }
-    animationId = requestAnimationFrame(animateQuedarse);
-  }
-
-  function animateSeguir() {
-    ctx.clearRect(0, 0, W, H);
-    if (Math.random() < 0.4) {
-      fireParticles.push(new FireParticle(Math.random() * W, H + 20));
-    }
-    for (let i = fireParticles.length -1; i >= 0; i--) {
-      const f = fireParticles[i];
-      f.update();
-      f.draw();
-      if (f.life <= 0 || f.y < -50) fireParticles.splice(i, 1);
-    }
-    animationId = requestAnimationFrame(animateSeguir);
-  }
-
-  function createTeAmoTexts() {
-    teamoTexts.length = 0;
-    pageTeAmo.innerHTML = '';
-    const textosCount = Math.floor(W / 60) * 5;
-    for (let i = 0; i < textosCount; i++) {
-      const div = document.createElement('div');
-      div.className = 'teamoText';
-      div.style.position = 'absolute';
-      div.style.left = (Math.random() * 90) + 'vw';
-      div.style.top = (-Math.random() * 100) + 'vh';
-      div.style.fontSize = (18 + Math.random() * 18) + 'px';
-      div.style.animationDelay = (Math.random() * 6) + 's';
-      div.textContent = 'TE AMO';
-      pageTeAmo.appendChild(div);
-      teamoTexts.push(div);
-    }
-  }
-
-  function showPageSV() {
-    mainText.style.display = 'none';
-    buttons.style.display = 'none';
-    pageTeAmo.classList.remove('show');
-    pageTeAmo.style.display = 'none';
-    pageSV.classList.add('show');
-    cancelAnimationFrame(animationId);
-    fireParticles = [];
-    animateSeguir();
-  }
-
-  function showPageQuedarse() {
-    mainText.style.display = 'none';
-    buttons.style.display = 'none';
-    pageSV.classList.remove('show');
-    pageTeAmo.classList.remove('show');
-    pageTeAmo.style.display = 'none';
-    pageSV.style.display = 'none';
-    cancelAnimationFrame(animationId);
-    miniHearts = [];
-    animateQuedarse();
-  }
-
-  function showPageTeAmo() {
-    mainText.style.display = 'none';
-    buttons.style.display = 'none';
-    pageSV.classList.remove('show');
-    pageSV.style.display = 'none';
-    pageTeAmo.style.display = 'flex';
-    pageTeAmo.classList.add('show');
-    createTeAmoTexts();
-    cancelAnimationFrame(animationId);
-    ctx.clearRect(0,0,W,H);
-  }
-
-  function resetToHeart() {
-    mainText.style.display = 'block';
-    buttons.style.display = 'flex';
-    pageSV.classList.remove('show');
-    pageSV.style.display = 'none';
-    pageTeAmo.classList.remove('show');
-    pageTeAmo.style.display = 'none';
-    cancelAnimationFrame(animationId);
-    animateHeart();
-  }
-
-  seguirBtn.onclick = showPageSV;
-  quedarseBtn.onclick = showPageQuedarse;
-  teamoBtn.onclick = showPageTeAmo;
-
-  // Botón música
-  let musicPlaying = false;
-  audioControl.onclick = () => {
-    if (musicPlaying) {
-      backgroundMusic.pause();
-      audioControl.textContent = "🎷 Jazz OFF";
-      musicPlaying = false;
-    } else {
-      backgroundMusic.play();
-      audioControl.textContent = "🎷 Jazz ON";
-      musicPlaying = true;
-    }
-  };
-  backgroundMusic.volume = 0.3;
-  // Auto start music (opcional, puede ser bloqueado por navegador)
-  // backgroundMusic.play().catch(()=>{});
-
-  animateHeart();
 </script>
 </body>
 </html>
+```0
