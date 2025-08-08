@@ -1,0 +1,118 @@
+/<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Corazón neón</title>
+<style>
+  /* Fondo negro */
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ff66cc; /* rosa neón */
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Corazón neón */
+  .corazon {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    background: #ff66cc;
+    transform: rotate(-45deg);
+    margin-bottom: 40px;
+    box-shadow:
+      0 0 10px #ff66cc,
+      0 0 20px #ff66cc,
+      0 0 30px #ff66cc,
+      0 0 40px #ff66cc;
+    animation: pulso 2.5s infinite;
+  }
+  .corazon::before,
+  .corazon::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 180px;
+    background: #ff66cc;
+    border-radius: 50%;
+    box-shadow:
+      0 0 10px #ff66cc,
+      0 0 20px #ff66cc,
+      0 0 30px #ff66cc,
+      0 0 40px #ff66cc;
+  }
+  .corazon::before {
+    top: -100px;
+    left: 0;
+  }
+  .corazon::after {
+    left: 100px;
+    top: 0;
+  }
+
+  /* Animación suave de pulso neón */
+  @keyframes pulso {
+    0%, 100% {
+      box-shadow:
+        0 0 10px #ff66cc,
+        0 0 20px #ff66cc,
+        0 0 30px #ff66cc,
+        0 0 40px #ff66cc;
+      transform: rotate(-45deg) scale(1);
+    }
+    50% {
+      box-shadow:
+        0 0 20px #ff99dd,
+        0 0 30px #ff99dd,
+        0 0 40px #ff99dd,
+        0 0 50px #ff99dd;
+      transform: rotate(-45deg) scale(1.05);
+    }
+  }
+
+  /* Texto estético */
+  .texto {
+    font-size: 1.4rem;
+    max-width: 320px;
+    line-height: 1.5;
+    text-shadow:
+      0 0 5px #ff66cc,
+      0 0 10px #ff66cc,
+      0 0 20px #ff99dd;
+    animation: brillo 3s ease-in-out infinite alternate;
+  }
+
+  /* Animación de brillo */
+  @keyframes brillo {
+    0% {
+      color: #ff66cc;
+      text-shadow:
+        0 0 5px #ff66cc,
+        0 0 10px #ff66cc,
+        0 0 20px #ff99dd;
+    }
+    100% {
+      color: #ff99dd;
+      text-shadow:
+        0 0 10px #ff99dd,
+        0 0 20px #ff99dd,
+        0 0 30px #ffccf2;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="corazon"></div>
+  <div class="texto">
+    aun estoy aprendiendo pero esto es para ti jsksjsk,<br>
+    te amo mucho :3
+  </div>
+</body>
+</html>
