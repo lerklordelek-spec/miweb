@@ -1,90 +1,332 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Corazón Animado Optimizado</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Corazón Animado</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; background: #000; font-family: 'Poppins', sans-serif; overflow: hidden; user-select: none; }
-  #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; background: #000; }
-  #mainText { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #d26a5a; font-size: 1.2rem; font-weight: 600; text-align: center; max-width: 90vw; z-index: 10; line-height:1.4; letter-spacing:0.02em; text-shadow:0 0 4px #b84e42aa; animation:pulseText 3s ease-in-out infinite; display:block; }
-  @keyframes pulseText { 0%,100%{opacity:0.9;}50%{opacity:1;} }
-  #buttons { position: fixed; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 15; }
-  button { font-family: 'Poppins', sans-serif; font-weight:700; font-size:1rem; padding:10px 20px; border-radius:25px; border:none; cursor:pointer; transition:0.2s; }
-  button:active { transform: scale(0.95); }
-  #seguirBtn{background:#2ecc71;color:#fff;}#quedarseBtn{background:#e74c3c;color:#fff;}#teamoBtn{background:#d85ca3;color:#fff;}
-  #pageSV, #pageTeAmo { position:fixed; top:0; left:0; width:100vw; height:100vh; display:none; align-items:center; justify-content:center; flex-direction:column; z-index:20; transition:opacity 0.5s ease; }
-  #pageSV{background:#121212;color:#f4f4f4;}#pageSV.show, #pageTeAmo.show { display:flex; opacity:1; }
-  #pageSV h1{font-size:4rem; font-weight:900; color:#e74c3c; text-shadow:0 0 10px #e74c3caa; margin-bottom:20px;}
-  iframe{border-radius:12px; box-shadow:0 0 20px #e74c3c88; width:80vw; max-width:600px; height:338px;}
-  #pageTeAmo{background:#000;color:#d85ca3; font-size:2rem; font-weight:900; flex-wrap:wrap; padding:10px; overflow:hidden;}
-  .falling { position:absolute; animation:fall 5s linear infinite; white-space:nowrap;}
-  @keyframes fall { 0%{transform:translateY(-100vh);}100%{transform:translateY(110vh);} }
-  #audioControl { position:fixed; top:10px; right:10px; z-index:50; background:#444; color:#fff; border:none; padding:6px 10px; border-radius:15px; cursor:pointer; opacity:0.8;}
-  #audioControl:hover{opacity:1;}
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    color: #eee;
+    overflow: hidden;
+    user-select: none;
+  }
+  #canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: block;
+    z-index: 1;
+    background: #000;
+  }
+  #mainText {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #d26a5a;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    max-width: 90vw;
+    z-index: 5;
+    user-select: none;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 4px #b84e42aa;
+    animation: pulseText 3s ease-in-out infinite;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+    display: none;
+  }
+  @keyframes pulseText {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+  }
+  #buttons {
+    position: fixed;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    display: none;
+    gap: 20px;
+  }
+  button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 10px 28px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.3s ease, transform 0.15s ease;
+    user-select: none;
+  }
+  button:active {
+    transform: scale(0.95);
+  }
+  #seguirBtn {
+    background-color: #2ecc71; /* verde */
+    color: white;
+  }
+  #seguirBtn:hover {
+    background-color: #27ae60;
+  }
+  #quedarseBtn {
+    background-color: #e74c3c; /* rojo */
+    color: white;
+  }
+  #quedarseBtn:hover {
+    background-color: #c0392b;
+  }
+
+  /* Página S&V */
+  #pageSV {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #121212;
+    color: #f4f4f4;
+    z-index: 20;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-weight: 700;
+    font-size: 5rem;
+    text-align: center;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  #pageSV.show {
+    display: flex;
+    opacity: 1;
+  }
+  #pageSV h1 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: #e74c3c;
+    text-shadow: 0 0 20px #e74c3cbb;
+    margin-bottom: 30px;
+    transition: opacity 0.8s ease;
+    user-select: none;
+  }
+  iframe {
+    border-radius: 16px;
+    box-shadow: 0 0 40px #e74c3caa;
+    width: 90vw;
+    max-width: 720px;
+    height: 405px;
+    border: none;
+    user-select: none;
+  }
+
+  /* Fade in/out clases */
+  .fade-in {
+    animation: fadeIn 0.8s ease forwards;
+  }
+  .fade-out {
+    animation: fadeOut 0.8s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
 </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<div id="mainText">aun estoy aprendiendo pero esto es para ti jsksjsk,<br>te amo mucho :3</div>
-<div id="buttons">
-  <button id="seguirBtn">Seguir</button>
-  <button id="quedarseBtn">Quedarse</button>
-  <button id="teamoBtn">Te amo</button>
-</div>
-<div id="pageSV">
-  <h1>S &amp; V</h1>
-  <iframe src="https://www.youtube-nocookie.com/embed/7UXrXyOaH4c?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
-<div id="pageTeAmo"></div>
-<button id="audioControl">🎷 Jazz</button>
-<audio id="backgroundMusic" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_d24bb9b5ca.mp3?filename=jazz-in-paris-14831.mp3" loop></audio>
+  <canvas id="canvas"></canvas>
+
+  <div id="mainText">
+    aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
+  </div>
+
+  <div id="buttons">
+    <button id="seguirBtn">Seguir</button>
+    <button id="quedarseBtn">Quedarse</button>
+  </div>
+
+  <div id="pageSV" aria-label="Página S y V">
+    <h1>S &amp; V</h1>
+    <iframe
+      src="https://www.youtube.com/embed/9w9Tj1U9A6c?autoplay=1&mute=0&loop=1&playlist=9w9Tj1U9A6c"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      title="Zombie Lady - Måneskin"
+    ></iframe>
+  </div>
+
+  <audio id="jazzAudio" src="https://www.youtube.com/watch?v=7UXrXyOaH4c&ab_channel=JAZZ_VIBE" loop></audio>
+
 <script>
-const c=document.getElementById('canvas'), ctx=c.getContext('2d'),
- mainText=document.getElementById('mainText'), buttons=document.getElementById('buttons'),
- seguirBtn=document.getElementById('seguirBtn'), quedarseBtn=document.getElementById('quedarseBtn'),
- teamoBtn=document.getElementById('teamoBtn'), pageSV=document.getElementById('pageSV'),
- pageTeAmo=document.getElementById('pageTeAmo'), audioControl=document.getElementById('audioControl'),
- bgm=document.getElementById('backgroundMusic');
-let W,H;
-function resize(){W=window.innerWidth;H=window.innerHeight;c.width=W;c.height=H;}
-window.onresize=resize;resize();
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const mainText = document.getElementById('mainText');
+  const buttons = document.getElementById('buttons');
+  const seguirBtn = document.getElementById('seguirBtn');
+  const quedarseBtn = document.getElementById('quedarseBtn');
+  const pageSV = document.getElementById('pageSV');
+  const jazzAudio = document.getElementById('jazzAudio');
 
-class Particle{
-  constructor(x,y){this.x=Math.random()*W; this.y=Math.random()*H; this.destX=x; this.destY=y; this.vx=0; this.vy=0;}
-  update(){this.vx+=(this.destX-this.x)*0.1;this.vy+=(this.destY-this.y)*0.1;this.x+=this.vx*(.9);this.y+=this.vy*(.9);}
-  draw(){ctx.fillStyle='#d26a5a';ctx.beginPath();ctx.arc(this.x,this.y,2,0,2*Math.PI);ctx.fill();}
-}
-function createHeart(count){
-  const pts=[];for(let i=0;i<count;i++){let t=i/count * Math.PI*2;
-    let x=16*Math.pow(Math.sin(t),3), y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
-    pts.push({x:W/2+x*W/60, y:H/2 - y*H/60});}
-  return pts;
-}
-const heartPts=createHeart(80), parts=heartPts.map(p=>new Particle(p.x,p.y));
-let mode='heart', mini=[], fire=[];
+  let W, H;
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
-function draw(){ctx.clearRect(0,0,W,H);
-  if(mode==='heart'){parts.forEach(p=>{p.update();p.draw();});}
-  else if(mode==='quedarse'){if(Math.random()<0.2) mini.push({x:Math.random()*W,y:-10,rot:Math.random()*360}); mini.forEach(m=>{m.y+=2; m.rot+=2; ctx.save(); ctx.translate(m.x,m.y); ctx.rotate(m.rot*Math.PI/180); ctx.fillStyle='#e74c3c';ctx.fillText('❤',0,0); ctx.restore();});}
-  else if(mode==='seguir'){if(Math.random()<0.3) fire.push({x:Math.random()*W,y:H,vy:-Math.random()*3-1,alpha:1}); fire.forEach((f,i)=>{ctx.fillStyle=`rgba(255,${Math.random()*155+100},0,${f.alpha.toFixed(2)})`; ctx.beginPath(); ctx.arc(f.x,f.y,Math.random()*4+2,0,2*Math.PI); ctx.fill(); f.y+=f.vy; f.alpha-=0.01; if(f.alpha<=0) fire.splice(i,1);});}
-  requestAnimationFrame(draw);
-}
-draw();
+  // Partículas corazón que convergen
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.destX = x;
+      this.destY = y;
+      this.vx = 0;
+      this.vy = 0;
+      this.color = color;
+      this.radius = 3;
+      this.friction = 0.85;
+      this.ease = 0.15;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 3;
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    update() {
+      let dx = this.destX - this.x;
+      let dy = this.destY - this.y;
 
-seguirBtn.onclick=()=>{mode='seguir'; mainText.style.display='none'; buttons.style.display='none'; pageSV.classList.add('show');}
-quedarseBtn.onclick=()=>{mode='quedarse'; mainText.style.display='none'; buttons.style.display='none';}
-teamoBtn.onclick=()=>{mode='teamo'; mainText.style.display='none'; buttons.style.display='none'; pageTeAmo.classList.add('show'); for(let i=0;i<30;i++){const d=document.createElement('div');d.className='falling'; d.style.left=Math.random()*100+'vw'; d.style.fontSize=(20+Math.random()*20)+'px'; d.textContent='TE AMO'; pageTeAmo.appendChild(d);} }
+      this.vx += dx * this.ease;
+      this.vy += dy * this.ease;
 
-let playing=false;
-audioControl.onclick=()=>{
-  playing ? bgm.pause() : bgm.play();
-  playing=!playing;
-};
+      this.vx *= this.friction;
+      this.vy *= this.friction;
 
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+  }
+
+  // Crear puntos para forma de corazón
+  function createHeartPoints(centerX, centerY, size, count) {
+    const points = [];
+    for (let i = 0; i < count; i++) {
+      let t = (i / count) * (Math.PI * 2);
+      let x = 16 * Math.pow(Math.sin(t), 3);
+      let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+      points.push({
+        x: centerX + x * size,
+        y: centerY - y * size,
+      });
+    }
+    return points;
+  }
+
+  const particleCount = 180;
+  const centerX = W / 2;
+  const centerY = H / 2.2;
+  const heartSize = Math.min(W, H) / 22;
+  const heartPoints = createHeartPoints(centerX, centerY, heartSize, particleCount);
+
+  let particles = [];
+  for (let i = 0; i < particleCount; i++) {
+    // Partículas empiezan esparcidas aleatoriamente
+    let px = Math.random() * W;
+    let py = Math.random() * H;
+    let p = new Particle(px, py, 'rgba(204,74,63,0.9)');
+    p.destX = heartPoints[i].x;
+    p.destY = heartPoints[i].y;
+    particles.push(p);
+  }
+
+  let animationPhase = 'formingHeart';
+
+  function drawText() {
+    mainText.style.display = 'block';
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+
+    if (animationPhase === 'formingHeart') {
+      let doneCount = 0;
+      for (let p of particles) {
+        p.update();
+        p.draw();
+        if (Math.abs(p.x - p.destX) < 0.5 && Math.abs(p.y - p.destY) < 0.5) doneCount++;
+      }
+      if (doneCount / particleCount > 0.9) {
+        animationPhase = 'showButtons';
+        buttons.style.display = 'flex';
+        drawText();
+      }
+    } else if (animationPhase === 'showButtons' || animationPhase === 'stayed') {
+      for (let p of particles) p.draw();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  seguirBtn.onclick = () => {
+    // Parar jazz
+    jazzAudio.pause();
+    // Fade out
+    mainText.classList.add('fade-out');
+    buttons.classList.add('fade-out');
+
+    setTimeout(() => {
+      mainText.style.display = 'none';
+      buttons.style.display = 'none';
+
+      pageSV.classList.add('show');
+    }, 800);
+
+    animationPhase = 'seguido';
+  };
+
+  quedarseBtn.onclick = () => {
+    animationPhase = 'stayed';
+    buttons.style.display = 'none';
+    mainText.style.display = 'none';
+  };
+
+  // Iniciar jazz al cargar página y pedir permiso si es necesario
+  window.onload = () => {
+    jazzAudio.volume = 0.3;
+    const playPromise = jazzAudio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Puede que el navegador bloquee autoplay, se puede pedir interacción para iniciar
+        console.log('Autoplay bloqueado, espera interacción para iniciar música');
+      });
+    }
+  };
+
+  animate();
 </script>
 </body>
 </html>
-```0
