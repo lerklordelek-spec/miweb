@@ -6,7 +6,6 @@
 <title>Corazón Animado</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -31,65 +30,60 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #d26a5a;
-    font-size: 1.5rem;
+    color: #d74c4c;
+    font-size: 1.3rem;
     font-weight: 600;
     text-align: center;
     max-width: 90vw;
-    z-index: 5;
-    user-select: none;
+    z-index: 10;
     line-height: 1.4;
     letter-spacing: 0.02em;
-    text-shadow: 0 0 4px #b84e42aa;
+    text-shadow: 0 0 6px #b33a3aaa;
     animation: pulseText 3s ease-in-out infinite;
-    opacity: 1;
-    transition: opacity 0.8s ease;
-    display: none;
+    user-select: none;
   }
   @keyframes pulseText {
-    0%, 100% { opacity: 0.9; }
+    0%, 100% { opacity: 0.8; }
     50% { opacity: 1; }
   }
   #buttons {
     position: fixed;
     bottom: 25px;
     width: 100%;
-    text-align: center;
-    z-index: 10;
-    display: none;
+    display: flex;
+    justify-content: center;
     gap: 20px;
+    z-index: 15;
   }
   button {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
-    padding: 10px 28px;
+    padding: 10px 25px;
     border-radius: 25px;
     border: none;
     cursor: pointer;
-    box-shadow: none;
-    transition: background-color 0.3s ease, transform 0.15s ease;
+    transition: background-color 0.25s ease;
     user-select: none;
   }
   button:active {
     transform: scale(0.95);
   }
   #seguirBtn {
-    background-color: #2ecc71; /* verde */
+    background-color: #27ae60;
     color: white;
   }
   #seguirBtn:hover {
-    background-color: #27ae60;
+    background-color: #1e8449;
   }
   #quedarseBtn {
-    background-color: #e74c3c; /* rojo */
+    background-color: #e74c3c;
     color: white;
   }
   #quedarseBtn:hover {
-    background-color: #c0392b;
+    background-color: #b03a2e;
   }
-
-  /* Página S&V */
+  /* Segunda página */
   #pageSV {
     display: none;
     position: fixed;
@@ -102,77 +96,51 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-weight: 700;
-    font-size: 5rem;
-    text-align: center;
     user-select: none;
-    opacity: 0;
-    transition: opacity 0.8s ease;
   }
   #pageSV.show {
     display: flex;
-    opacity: 1;
   }
   #pageSV h1 {
-    font-size: 5.5rem;
+    font-size: 5rem;
     font-weight: 900;
-    letter-spacing: 0.3em;
     color: #e74c3c;
-    text-shadow: 0 0 20px #e74c3cbb;
+    text-shadow: 0 0 15px #e74c3caa;
     margin-bottom: 30px;
-    transition: opacity 0.8s ease;
-    user-select: none;
+    letter-spacing: 0.3em;
   }
-  iframe {
+  #pageSV iframe {
     border-radius: 16px;
-    box-shadow: 0 0 40px #e74c3caa;
+    box-shadow: 0 0 30px #e74c3caa;
     width: 90vw;
     max-width: 720px;
     height: 405px;
     border: none;
-    user-select: none;
-  }
-
-  /* Fade in/out clases */
-  .fade-in {
-    animation: fadeIn 0.8s ease forwards;
-  }
-  .fade-out {
-    animation: fadeOut 0.8s ease forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
   }
 </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
 
-  <div id="mainText">
-    aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
-  </div>
+<canvas id="canvas"></canvas>
 
-  <div id="buttons">
-    <button id="seguirBtn">Seguir</button>
-    <button id="quedarseBtn">Quedarse</button>
-  </div>
+<div id="mainText">
+  aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
+</div>
 
-  <div id="pageSV" aria-label="Página S y V">
-    <h1>S &amp; V</h1>
-    <iframe
-      src="https://www.youtube.com/embed/9w9Tj1U9A6c?autoplay=1&mute=0&loop=1&playlist=9w9Tj1U9A6c"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      title="Zombie Lady - Måneskin"
-    ></iframe>
-  </div>
+<div id="buttons">
+  <button id="seguirBtn">Seguir</button>
+  <button id="quedarseBtn">Quedarse</button>
+</div>
 
-  <audio id="jazzAudio" src="https://www.youtube.com/watch?v=7UXrXyOaH4c&ab_channel=JAZZ_VIBE" loop></audio>
+<div id="pageSV" aria-label="Página S y V">
+  <h1>S &amp; V</h1>
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/rgx_peYT9ZY?autoplay=1&mute=1"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    title="Video S y V"
+  ></iframe>
+</div>
 
 <script>
   const canvas = document.getElementById('canvas');
@@ -182,7 +150,6 @@
   const seguirBtn = document.getElementById('seguirBtn');
   const quedarseBtn = document.getElementById('quedarseBtn');
   const pageSV = document.getElementById('pageSV');
-  const jazzAudio = document.getElementById('jazzAudio');
 
   let W, H;
   function resize() {
@@ -194,139 +161,208 @@
   window.addEventListener('resize', resize);
   resize();
 
-  // Partículas corazón que convergen
+  // PARTICULAS DEL CORAZÓN QUE SE FORMA
   class Particle {
-    constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
+    constructor(x, y) {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
       this.destX = x;
       this.destY = y;
       this.vx = 0;
       this.vy = 0;
-      this.color = color;
       this.radius = 3;
-      this.friction = 0.85;
-      this.ease = 0.15;
+      this.color = 'rgba(199, 45, 45, 0.85)';
+    }
+    update() {
+      let dx = this.destX - this.x;
+      let dy = this.destY - this.y;
+      this.vx += dx * 0.12;
+      this.vy += dy * 0.12;
+      this.vx *= 0.85;
+      this.vy *= 0.85;
+      this.x += this.vx;
+      this.y += this.vy;
     }
     draw() {
       ctx.beginPath();
       ctx.fillStyle = this.color;
       ctx.shadowColor = this.color;
-      ctx.shadowBlur = 3;
+      ctx.shadowBlur = 5;
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
     }
-    update() {
-      let dx = this.destX - this.x;
-      let dy = this.destY - this.y;
-
-      this.vx += dx * this.ease;
-      this.vy += dy * this.ease;
-
-      this.vx *= this.friction;
-      this.vy *= this.friction;
-
-      this.x += this.vx;
-      this.y += this.vy;
-    }
   }
 
-  // Crear puntos para forma de corazón
-  function createHeartPoints(centerX, centerY, size, count) {
+  // FUNCION PARA CREAR PUNTOS DEL CORAZÓN
+  function createHeartPoints(cx, cy, size, count) {
     const points = [];
     for (let i = 0; i < count; i++) {
-      let t = (i / count) * (Math.PI * 2);
+      let t = (i / count) * Math.PI * 2;
       let x = 16 * Math.pow(Math.sin(t), 3);
-      let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+      let y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
       points.push({
-        x: centerX + x * size,
-        y: centerY - y * size,
+        x: cx + x * size,
+        y: cy - y * size,
       });
     }
     return points;
   }
 
-  const particleCount = 180;
-  const centerX = W / 2;
-  const centerY = H / 2.2;
-  const heartSize = Math.min(W, H) / 22;
-  const heartPoints = createHeartPoints(centerX, centerY, heartSize, particleCount);
+  // PARTICULAS MINI CORAZÓN LLUVIA (subiendo)
+  class MiniHeart {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vy = -1.8 - Math.random() * 0.9;
+      this.radius = 7;
+      this.color = 'rgba(231, 76, 60, 0.9)';
+      this.opacity = 1;
+      this.rotation = Math.random() * 360;
+      this.rotationSpeed = (Math.random() - 0.5) * 4;
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation * Math.PI / 180);
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-this.radius/2, -this.radius/2, -this.radius, this.radius/3, 0, this.radius);
+      ctx.bezierCurveTo(this.radius, this.radius/3, this.radius/2, -this.radius/2, 0, 0);
+      ctx.fill();
+      ctx.restore();
+    }
+    update() {
+      this.y += this.vy;
+      this.rotation += this.rotationSpeed;
+      this.opacity -= 0.013;
+      if(this.opacity < 0) this.opacity = 0;
+    }
+    isDead() {
+      return this.opacity <= 0;
+    }
+  }
 
+  // PARTICULAS FUEGO LLUVIA PARA SEGUNDA PAGINA (subiendo)
+  class FireParticle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vy = -1.2 - Math.random() * 2;
+      this.vx = (Math.random() - 0.5) * 1.2;
+      this.radius = 3 + Math.random() * 2;
+      this.opacity = 1;
+      this.color = `rgba(255,${120 + Math.floor(Math.random()*80)},0,`;
+    }
+    draw() {
+      ctx.save();
+      let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      gradient.addColorStop(0, this.color + this.opacity + ')');
+      gradient.addColorStop(1, this.color + '0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.opacity -= 0.02;
+      if(this.opacity < 0) this.opacity = 0;
+    }
+    isDead() {
+      return this.opacity <= 0;
+    }
+  }
+
+  const particleCount = 150;
+  const heartSize = Math.min(W, H) / 18;
+  let heartPoints = createHeartPoints(W/2, H/2.5, heartSize, particleCount);
   let particles = [];
-  for (let i = 0; i < particleCount; i++) {
-    // Partículas empiezan esparcidas aleatoriamente
-    let px = Math.random() * W;
-    let py = Math.random() * H;
-    let p = new Particle(px, py, 'rgba(204,74,63,0.9)');
-    p.destX = heartPoints[i].x;
-    p.destY = heartPoints[i].y;
-    particles.push(p);
-  }
+  let miniHearts = [];
+  let fireParticles = [];
+  let state = 'formingHeart'; // 'formingHeart', 'quedarse', 'seguir'
 
-  let animationPhase = 'formingHeart';
-
-  function drawText() {
-    mainText.style.display = 'block';
+  function initParticles() {
+    particles = [];
+    for(let i=0; i<particleCount; i++) {
+      particles.push(new Particle(heartPoints[i].x, heartPoints[i].y));
+    }
   }
+  initParticles();
 
   function animate() {
     ctx.clearRect(0, 0, W, H);
 
-    if (animationPhase === 'formingHeart') {
-      let doneCount = 0;
-      for (let p of particles) {
+    if(state === 'formingHeart') {
+      let arrivedCount = 0;
+      for(let p of particles) {
         p.update();
         p.draw();
-        if (Math.abs(p.x - p.destX) < 0.5 && Math.abs(p.y - p.destY) < 0.5) doneCount++;
+        if(Math.abs(p.x - p.destX) < 0.5 && Math.abs(p.y - p.destY) < 0.5) {
+          arrivedCount++;
+          p.x = p.destX;
+          p.y = p.destY;
+          p.vx = 0;
+          p.vy = 0;
+        }
       }
-      if (doneCount / particleCount > 0.9) {
-        animationPhase = 'showButtons';
-        buttons.style.display = 'flex';
-        drawText();
+      if(arrivedCount === particles.length) {
+        state = 'heartFormed';
       }
-    } else if (animationPhase === 'showButtons' || animationPhase === 'stayed') {
-      for (let p of particles) p.draw();
+    }
+    else if(state === 'heartFormed') {
+      for(let p of particles) {
+        p.draw();
+      }
+    }
+    else if(state === 'quedarse') {
+      // Mini corazones subiendo
+      if(Math.random() < 0.3) {
+        let x = Math.random() * W;
+        let y = H + 20;
+        miniHearts.push(new MiniHeart(x, y));
+      }
+      for(let i = miniHearts.length -1; i >= 0; i--) {
+        let mh = miniHearts[i];
+        mh.update();
+        if(mh.isDead()) miniHearts.splice(i,1);
+        else mh.draw();
+      }
+    }
+    else if(state === 'seguir') {
+      // Fuego subiendo
+      if(Math.random() < 0.35) {
+        let x = Math.random() * W;
+        let y = H + 10;
+        fireParticles.push(new FireParticle(x, y));
+      }
+      for(let i = fireParticles.length -1; i >= 0; i--) {
+        let fp = fireParticles[i];
+        fp.update();
+        if(fp.isDead()) fireParticles.splice(i,1);
+        else fp.draw();
+      }
     }
 
     requestAnimationFrame(animate);
   }
+  animate();
 
   seguirBtn.onclick = () => {
-    // Parar jazz
-    jazzAudio.pause();
-    // Fade out
-    mainText.classList.add('fade-out');
-    buttons.classList.add('fade-out');
-
-    setTimeout(() => {
-      mainText.style.display = 'none';
-      buttons.style.display = 'none';
-
-      pageSV.classList.add('show');
-    }, 800);
-
-    animationPhase = 'seguido';
+    state = 'seguir';
+    mainText.style.display = 'none';
+    buttons.style.display = 'none';
+    pageSV.classList.add('show');
   };
 
   quedarseBtn.onclick = () => {
-    animationPhase = 'stayed';
-    buttons.style.display = 'none';
+    state = 'quedarse';
     mainText.style.display = 'none';
+    buttons.style.display = 'none';
   };
-
-  // Iniciar jazz al cargar página y pedir permiso si es necesario
-  window.onload = () => {
-    jazzAudio.volume = 0.3;
-    const playPromise = jazzAudio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Puede que el navegador bloquee autoplay, se puede pedir interacción para iniciar
-        console.log('Autoplay bloqueado, espera interacción para iniciar música');
-      });
-    }
-  };
-
-  animate();
 </script>
 </body>
 </html>
