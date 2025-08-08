@@ -1,111 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Animación Corazón & Página S&V</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animación Corazón & Página S&V</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-    /* Reset y base */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    body, html {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: 'Poppins', sans-serif;
-      color: #eee;
-      user-select: none;
-    }
-    #canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      display: block;
-      z-index: 1;
-      background: #000;
-    }
-    #buttons {
-      position: fixed;
-      bottom: 40px;
-      width: 100%;
-      text-align: center;
-      z-index: 10;
-      display: none;
-      gap: 40px;
-    }
-    button {
-      background: #e63946;
-      border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      padding: 12px 36px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #e63946aa;
-      transition: all 0.3s ease;
-      font-weight: 700;
-    }
-    button:hover {
-      background: #ff6b81;
-      box-shadow: 0 0 20px #ff6b81cc;
-    }
-    /* Página S&V */
-    #pageSV {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: #121212;
-      color: #f4f4f4;
-      z-index: 20;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      font-weight: 700;
-      font-size: 6rem;
-      text-align: center;
-      animation: fadeIn 1s ease forwards;
-      user-select: none;
-    }
-    #pageSV h1 {
-      font-size: 8rem;
-      font-weight: 900;
-      margin-bottom: 40px;
-      letter-spacing: 0.2em;
-      color: #e63946;
-      text-shadow:
-        0 0 10px #e63946,
-        0 0 20px #ff6b81,
-        0 0 40px #ff6b81;
-      animation: pulse 2.5s infinite;
-    }
-    iframe {
-      border-radius: 20px;
-      box-shadow: 0 0 40px #e63946aa;
-      width: 90vw;
-      max-width: 800px;
-      height: 450px;
-      border: none;
-      animation: fadeIn 2s ease forwards 1s;
-    }
+  /* Reset y base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body, html {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    color: #eee;
+    user-select: none;
+  }
+  #canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: block;
+    z-index: 1;
+    background: #000;
+  }
+  #buttons {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    display: none;
+    gap: 40px;
+  }
+  button {
+    background: #e63946;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    padding: 12px 36px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #e63946aa;
+    transition: all 0.3s ease;
+    font-weight: 700;
+  }
+  button:hover {
+    background: #ff6b81;
+    box-shadow: 0 0 20px #ff6b81cc;
+  }
+  /* Página S&V */
+  #pageSV {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #121212;
+    color: #f4f4f4;
+    z-index: 20;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-weight: 700;
+    font-size: 6rem;
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+    user-select: none;
+  }
+  #pageSV h1 {
+    font-size: 8rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    letter-spacing: 0.2em;
+    color: #e63946;
+    text-shadow:
+      0 0 10px #e63946,
+      0 0 20px #ff6b81,
+      0 0 40px #ff6b81;
+    animation: pulse 2.5s infinite;
+  }
+  iframe {
+    border-radius: 20px;
+    box-shadow: 0 0 40px #e63946aa;
+    width: 90vw;
+    max-width: 800px;
+    height: 450px;
+    border: none;
+    animation: fadeIn 2s ease forwards 1s;
+  }
 
-    /* Animaciones */
-    @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 20px #e63946, 0 0 40px #ff6b81; }
-      50% { text-shadow: 0 0 40px #ff6b81, 0 0 60px #e63946; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+  /* Animaciones */
+  @keyframes pulse {
+    0%, 100% { text-shadow: 0 0 20px #e63946, 0 0 40px #ff6b81; }
+    50% { text-shadow: 0 0 40px #ff6b81, 0 0 60px #e63946; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Texto animado en pantalla principal */
+  #mainText {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff4d6d;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    width: 90vw;
+    max-width: 600px;
+    filter: drop-shadow(0 0 6px #ff4d6d);
+    user-select: none;
+    animation: textGlow 2s ease infinite alternate;
+    z-index: 5;
+  }
+  @keyframes textGlow {
+    0% { filter: drop-shadow(0 0 6px #ff4d6d); }
+    100% { filter: drop-shadow(0 0 18px #ff4d6d); }
+  }
+</style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
+
+  <div id="mainText" style="display:none;">
+    aun estoy aprendiendo pero esto es para ti jsksjsk,<br> te amo mucho :3
+  </div>
 
   <div id="buttons">
     <button id="seguirBtn">Seguir</button>
@@ -118,10 +144,10 @@
   </div>
 
   <script>
-    // Config canvas
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let W, H;
+
     function resize() {
       W = window.innerWidth;
       H = window.innerHeight;
@@ -131,7 +157,6 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Partículas para formar el corazón
     class Particle {
       constructor(x, y, color) {
         this.x = x;
@@ -154,7 +179,6 @@
         ctx.fill();
       }
       update() {
-        // Movimiento suave hacia destino
         let dx = this.destX - this.x;
         let dy = this.destY - this.y;
         this.vx += dx * this.ease;
@@ -168,12 +192,10 @@
       }
     }
 
-    // Función para crear puntos en forma de corazón
     function createHeartPoints(centerX, centerY, size, count) {
       const points = [];
       for (let i = 0; i < count; i++) {
         let t = i / count * Math.PI * 2;
-        // Parametrización corazón (con cos y sin)
         let x = 16 * Math.pow(Math.sin(t), 3);
         let y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
         points.push({
@@ -184,36 +206,6 @@
       return points;
     }
 
-    // Crear partículas dispersas
-    let particles = [];
-    const particleCount = 300;
-    const centerX = W / 2;
-    const centerY = H / 2;
-    const heartSize = Math.min(W, H) / 12;
-
-    // Crear puntos del corazón
-    const heartPoints = createHeartPoints(centerX, centerY, heartSize, particleCount);
-
-    // Inicializar partículas en posiciones aleatorias dispersas
-    for (let i = 0; i < particleCount; i++) {
-      let px = Math.random() * W;
-      let py = Math.random() * H;
-      let p = new Particle(px, py, 'rgba(230, 57, 70, 0.9)');
-      // Asignar destino corazón
-      p.destX = heartPoints[i].x;
-      p.destY = heartPoints[i].y;
-      particles.push(p);
-    }
-
-    // Animación principal
-    let animationPhase = 'formingHeart'; // fases: formingHeart -> showButtons -> stayed or follow
-
-    const buttons = document.getElementById('buttons');
-    const seguirBtn = document.getElementById('seguirBtn');
-    const quedarseBtn = document.getElementById('quedarseBtn');
-    const pageSV = document.getElementById('pageSV');
-
-    // Para lluvia mini corazones
     class MiniHeart {
       constructor(x, y, color) {
         this.x = x;
@@ -230,7 +222,6 @@
         ctx.shadowColor = this.color;
         ctx.shadowBlur = 6;
         ctx.beginPath();
-        // Dibujar corazón simple con curva Bezier
         const x = this.x;
         const y = this.y;
         const r = this.radius;
@@ -250,38 +241,132 @@
       }
     }
 
+    class FireParticle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vy = -1 - Math.random() * 2;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.radius = 4 + Math.random() * 3;
+        this.opacity = 1;
+        this.color = `rgba(255,${100 + Math.floor(Math.random()*155)},0,`;
+      }
+      draw() {
+        ctx.save();
+        let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+        gradient.addColorStop(0, this.color + this.opacity + ')');
+        gradient.addColorStop(1, this.color + '0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.opacity -= 0.02;
+        if(this.opacity < 0) this.opacity = 0;
+      }
+      isDead() {
+        return this.opacity <= 0;
+      }
+    }
+
+    const particleCount = 300;
+    const centerX = W / 2;
+    const centerY = H / 2;
+    const heartSize = Math.min(W, H) / 12;
+    const heartPoints = createHeartPoints(centerX, centerY, heartSize, particleCount);
+
+    let particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      let px = Math.random() * W;
+      let py = Math.random() * H;
+      let p = new Particle(px, py, 'rgba(230, 57, 70, 0.9)');
+      p.destX = heartPoints[i].x;
+      p.destY = heartPoints[i].y;
+      particles.push(p);
+    }
+
+    let animationPhase = 'formingHeart';
+
+    const buttons = document.getElementById('buttons');
+    const seguirBtn = document.getElementById('seguirBtn');
+    const quedarseBtn = document.getElementById('quedarseBtn');
+    const pageSV = document.getElementById('pageSV');
+    const mainText = document.getElementById('mainText');
+
     let miniHearts = [];
+    let fireParticles = [];
+
+    function drawCenteredText() {
+      mainText.style.display = 'block';
+    }
 
     function animate() {
       ctx.clearRect(0, 0, W, H);
+
       if(animationPhase === 'formingHeart') {
         let doneCount = 0;
         for(let p of particles) {
           p.update();
           p.draw();
-          // Verificar qué tan cerca está del destino
           if(Math.abs(p.x - p.destX) < 0.5 && Math.abs(p.y - p.destY) < 0.5) doneCount++;
         }
-        // Cuando el 90% de partículas estén casi en destino, mostramos botones
         if(doneCount / particleCount > 0.9) {
           animationPhase = 'showButtons';
           buttons.style.display = 'flex';
+          drawCenteredText();
         }
-      } else if(animationPhase === 'stayed') {
-        // Mostrar corazón estático
-        for(let p of particles) {
-          p.draw();
+      } else if(animationPhase === 'showButtons' || animationPhase === 'stayed') {
+        // Dibujar partículas fijas (corazón)
+        for(let p of particles) p.draw();
+
+        if(animationPhase === 'stayed') {
+          // Lluvia de mini corazones hacia arriba
+          if(Math.random() < 0.1) {
+            miniHearts.push(new MiniHeart(Math.random() * W, H + 20, 'rgba(230, 57, 70, 0.9)'));
+          }
+          for(let i = miniHearts.length -1; i >= 0; i--) {
+            let h = miniHearts[i];
+            h.update();
+            h.draw();
+            if(h.isDead()) miniHearts.splice(i, 1);
+          }
         }
-        // Animar mini corazones si quedaste
-        for(let i = miniHearts.length -1; i >= 0; i--) {
-          let h = miniHearts[i];
-          h.update();
-          h.draw();
-          if(h.isDead()) miniHearts.splice(i, 1);
+      } else if(animationPhase === 'seguido') {
+        // Fondo oscuro limpio
+        ctx.clearRect(0, 0, W, H);
+
+        // Lluvia de partículas de fuego
+        if(Math.random() < 0.2) {
+          fireParticles.push(new FireParticle(Math.random() * W, H + 20));
         }
-        // Crear nuevos corazones aleatoriamente
-        if(Math.random() < 0.1) {
-          const x = Math.random() * W;
-          // Colores favorables al negro y rojo suave
-          const colors = ['rgba(230,57,70,0.9)', 'rgba(198,51,57,0.7)', 'rgba(255,105,180,0.6)'];
-          const color = colors[Math.floor(Math.random()
+        for(let i = fireParticles.length -1; i >= 0; i--) {
+          let f = fireParticles[i];
+          f.update();
+          f.draw();
+          if(f.isDead()) fireParticles.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    seguirBtn.onclick = () => {
+      animationPhase = 'seguido';
+      buttons.style.display = 'none';
+      mainText.style.display = 'none';
+      pageSV.style.display = 'flex';
+    };
+    quedarseBtn.onclick = () => {
+      animationPhase = 'stayed';
+      buttons.style.display = 'none';
+      mainText.style.display = 'none';
+    };
+
+    animate();
+  </script>
+</body>
+</html>
